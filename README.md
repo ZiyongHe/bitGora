@@ -1,10 +1,16 @@
-# Create React Express App
+# BitGora
 
-## About This Boilerplate
+BitGora is your local marketplace to buy and sell goods using Bitcoin. Your dashboard will display nearby postings and your posts will be available to other nearby buyers. If you see a post that you're interested in, BitGora comes with a chat function to arrange meet-ups or negotiate price.
 
-This setup allows for a Node/Express/React app which can be easily deployed to Heroku.
+## Purpose
 
-The front-end React app will auto-reload as it's updated via webpack dev server, and the backend Express app will auto-reload independently with nodemon.
+Bitcoin is a popular cryptocurrency, but we noticed a gap in being able to spend or gain Bitcoin without having to trade it. We wanted to extend the usage of Bitcoin and fill this gap with BitGora. BitGora provides an easier opportunity at gaining Bitcoin with smaller and more familiar transactions of buying/selling goods.
+
+Because of BitGora's chat functions, BitGora also builds a community and connects Bitcoin enthusiats together.
+
+## License
+
+BitGora is protected under the **MIT License**.
 
 ## Starting the app locally
 
