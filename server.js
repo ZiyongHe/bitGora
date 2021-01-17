@@ -1,7 +1,23 @@
 const express = require('express')
+const mongoose = require('mongoose')
 const path = require('path')
 const PORT = process.env.PORT || 3001
 const app = express()
+
+mongoose
+  .connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/bitgora', {
+    useNewUrlParser: true,
+    useFindAndModify: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log('Successfully connected to database!')
+  })
+  .catch((err) => {
+    console.log(err)
+    process.exit(1)
+  })
 
 // Define middleware here
 app.use(express.urlencoded({extended: true}))
