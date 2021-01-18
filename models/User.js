@@ -17,6 +17,10 @@ const userSchema = new Schema({
   },
 })
 
+userSchema.methods.validPassword = function (password) {
+  return bcrypt.compareSync(password, this.password)
+}
+
 userSchema.pre('save', function (next) {
   // Hash password before saving to database
   this.password = bcrypt.hashSync(this.password, bcrypt.genSaltSync(10))
