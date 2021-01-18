@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import { useUser } from '../../utils/UserContext'
@@ -22,9 +22,7 @@ function MainNav() {
       <Navbar.Toggle aria-controls="main-nav" />
       <Navbar.Collapse id="main-nav">
         <Nav>
-          <Link className="nav-link" onClick={handleLogout}>
-            Logout
-          </Link>
+          <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </>
