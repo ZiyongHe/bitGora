@@ -1,5 +1,5 @@
 {
-  "name": "mern-demo",
+  "name": "bigora",
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:3001/",
@@ -13,7 +13,7 @@
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
-    "web-vitals": "^0.2.4"
+    "ws": "^7.4.2"
   },
   "scripts": {
     "start": "react-scripts start",
