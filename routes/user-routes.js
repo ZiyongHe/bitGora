@@ -25,6 +25,15 @@ router.get('/login', (req, res) => {
   })
 })
 
+// Check if currently logged in
+router.get('/current-session', (req, res) => {
+  if (req.user) {
+    return res.status(200).json({ data: req.user })
+  } else {
+    return res.status(200).json({ data: {} })
+  }
+})
+
 router.post('/signup', async (req, res) => {
   try {
     const existingEmail = await User.findOne({ email: req.body.email })
