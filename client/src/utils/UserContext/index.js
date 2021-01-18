@@ -4,12 +4,20 @@ import { getSession } from '../user-API.js'
 const UserContext = React.createContext()
 
 export function UserProvider(props) {
-  const [user, setUser] = useState({})
+  const [user, setUser] = useState({
+    loading: true,
+    username: '',
+    email: '',
+  })
 
   useEffect(() => {
-    getSession().then((session) => {
-      setUser(session.data)
-    })
+    getSession()
+      .then((session) => {
+        setUser({ loading: false, ...session.data })
+      })
+      .catch((err) => {
+        setUser({ loading: false, username: '', email: '' })
+      })
   }, [])
 
   return <UserContext.Provider value={[user, setUser]} {...props} />
