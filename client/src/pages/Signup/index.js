@@ -2,9 +2,12 @@ import React, { useRef, useState } from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Alert from 'react-bootstrap/Alert'
+import { useUser } from '../../utils/UserContext'
 import { signup } from '../../utils/user-API'
 
 function Signup(props) {
+  // eslint-disable-next-line no-unused-vars
+  const [_, setUser] = useUser()
   const [err, setErr] = useState('')
   const email = useRef('')
   const username = useRef('')
@@ -18,7 +21,9 @@ function Signup(props) {
       password.current.value
     ).then((response) => {
       if (response.data) {
-        console.log(response.data)
+        setErr('')
+        setUser(response.data)
+        props.history.push('/dashboard')
       } else {
         setErr(response.err)
       }
