@@ -16,12 +16,12 @@ export function getSession() {
 //   return fetch('/user/logout').then((response) => response.json())
 // }
 
-// export function signup(email, username, password) {
-//   return fetch('/user/signup', {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//     body: JSON.stringify({ email, username, password }),
-//   }).then((response) => response.json())
-// }
+export function signup(email, username, password) {
+  return fetch('/user/signup', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ email, username, password }),
+  }).then((response) => response.json())
+}
