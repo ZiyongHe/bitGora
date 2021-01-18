@@ -31,7 +31,7 @@ function MainNav() {
   return (
     <Navbar bg="light" expand="lg">
       <Navbar.Brand>BitGora</Navbar.Brand>
-      {user.username ? userMenu : <></>}
+      {!user.loading && user.username ? userMenu : <></>}
     </Navbar>
   )
 }
