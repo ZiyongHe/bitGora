@@ -1,9 +1,11 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import Alert from 'react-bootstrap/Alert'
 import { signup } from '../../utils/user-API'
 
 function Signup(props) {
+  const [err, setErr] = useState('')
   const email = useRef('')
   const username = useRef('')
   const password = useRef('')
@@ -18,7 +20,7 @@ function Signup(props) {
       if (response.data) {
         console.log(response.data)
       } else {
-        console.log(response.err)
+        setErr(response.err)
       }
     })
   }
@@ -41,6 +43,7 @@ function Signup(props) {
         <Form.Label>Password</Form.Label>
         <Form.Control ref={password} type="password" />
       </Form.Group>
+      {err ? <Alert variant="warning">{err}</Alert> : ''}
       <Button type="submit">Sign Up</Button>
     </Form>
   )
