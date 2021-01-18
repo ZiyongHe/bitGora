@@ -18,6 +18,7 @@ router.post(
   }
 )
 
+// Failure route to deliver error message
 router.get('/login', (req, res) => {
   res.status(401).json({
     error: req.flash('error'),
