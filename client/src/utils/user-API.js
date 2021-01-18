@@ -2,15 +2,15 @@ export function getSession() {
   return fetch('/user/current-session').then((response) => response.json())
 }
 
-// export function login(username, password) {
-//   return fetch('/user/login', {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//     body: JSON.stringify({ username, password }),
-//   }).then((response) => response.json())
-// }
+export function login(username, password) {
+  return fetch('/user/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ username, password }),
+  }).then((response) => response.json())
+}
 
 // export function logout() {
 //   return fetch('/user/logout').then((response) => response.json())
