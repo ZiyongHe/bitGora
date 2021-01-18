@@ -1,6 +1,7 @@
 import React, { useRef } from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import { signup } from '../../utils/user-API'
 
 function Signup(props) {
   const email = useRef('')
@@ -9,9 +10,17 @@ function Signup(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(email.current.value)
-    console.log(username.current.value)
-    console.log(password.current.value)
+    signup(
+      email.current.value,
+      username.current.value,
+      password.current.value
+    ).then((response) => {
+      if (response.data) {
+        console.log(response.data)
+      } else {
+        console.log(response.err)
+      }
+    })
   }
 
   return (
