@@ -1,7 +1,7 @@
 {
-  "name": "mern",
+  "name": "bitgora",
   "version": "1.2.0",
-  "description": "Mern Demo",
+  "description": "BitGora",
   "main": "server.js",
   "scripts": {
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
@@ -12,8 +12,10 @@
     "build": "cd client && npm run build",
     "heroku-postbuild": "npm run build"
   },
-  "author": "",
-  "license": "ISC",
+  "author": {
+    "name": "Angelica Mapeso, Ziyong He"
+  },
+  "license": "MIT",
   "devDependencies": {
     "concurrently": "^5.3.0",
     "nodemon": "^2.0.7",
@@ -33,6 +35,7 @@
     "if-env": "^1.0.4",
     "mongoose": "^5.11.12",
     "passport": "^0.4.1",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "socket.io": "^3.1.0"
   }
 }
