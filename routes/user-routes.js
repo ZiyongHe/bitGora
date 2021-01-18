@@ -42,9 +42,11 @@ router.post('/signup', async (req, res) => {
     }
 
     const newUser = await User.create(req.body)
-    res.status(201).json({
-      data: newUser,
-    })
+    if (newUser) {
+      res.redirect(307, '/user/login')
+    } else {
+      res.status(500).json({ err: "Can't create your account at this time. " })
+    }
   } catch (err) {
     console.log(err)
     res.status(500).json({ err: err.message })
