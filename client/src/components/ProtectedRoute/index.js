@@ -1,12 +1,14 @@
 import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
+import { useUser } from '../../utils/UserContext'
 
-function ProtectedRoute({ component: Component, auth, exact, path, ...props }) {
-  const authorized = <Component auth={auth} {...props} />
+function ProtectedRoute({ component: Component, exact, path, ...props }) {
+  const [user] = useUser()
+  const authorized = <Component {...props} />
   const unauthorized = <Redirect to="/" />
   return (
     <Route exact path={path} {...props}>
-      {auth.username ? authorized : unauthorized}
+      {user.username ? authorized : unauthorized}
     </Route>
   )
 }
