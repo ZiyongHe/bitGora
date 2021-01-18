@@ -9,7 +9,9 @@ function PublicRoute({ component: Component, exact, path, ...extra }) {
       exact
       path={path}
       render={(props) => {
-        if (!user.username) {
+        if (user.loading) {
+          return <></>
+        } else if (!user.username) {
           return <Component {...extra} {...props} />
         } else {
           return <Redirect to="/dashboard" />

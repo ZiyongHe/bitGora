@@ -14,6 +14,7 @@ function Signup(props) {
   const password = useRef('')
 
   const handleSubmit = (e) => {
+    setUser((prevUser) => ({ loading: true, ...prevUser }))
     e.preventDefault()
     signup(
       email.current.value,
@@ -22,7 +23,7 @@ function Signup(props) {
     ).then((response) => {
       if (response.data) {
         setErr('')
-        setUser(response.data)
+        setUser({ loading: false, ...response.data })
         props.history.push('/dashboard')
       } else {
         setErr(response.err)
