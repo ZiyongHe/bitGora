@@ -5,7 +5,6 @@ const flash = require('connect-flash')
 const mongoose = require('mongoose')
 const path = require('path')
 const http = require('http')
-const PORT = process.env.PORT || 3001
 
 // Database connection
 mongoose
