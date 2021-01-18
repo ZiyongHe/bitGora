@@ -12,9 +12,9 @@ export function login(username, password) {
   }).then((response) => response.json())
 }
 
-// export function logout() {
-//   return fetch('/user/logout').then((response) => response.json())
-// }
+export function logout() {
+  return fetch('/user/logout').then((response) => response.json())
+}
 
 export function signup(email, username, password) {
   return fetch('/user/signup', {
