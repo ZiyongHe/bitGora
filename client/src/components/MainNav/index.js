@@ -10,8 +10,9 @@ function MainNav() {
   const history = useHistory()
 
   const handleLogout = () => {
+    setUser((prevUser) => ({ loading: true, ...prevUser }))
     logout().then(() => {
-      setUser({})
+      setUser({ loading: false, username: '', email: '' })
       history.push('/')
     })
   }
