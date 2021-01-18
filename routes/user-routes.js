@@ -1,5 +1,28 @@
 const router = require('express').Router()
 const { User } = require('../models')
+const passport = require('../config/passport')
+
+router.post(
+  '/login',
+  passport.authenticate('local', {
+    failureRedirect: '/user/login',
+    failureFlash: true,
+  }),
+  (req, res) => {
+    res.json({
+      data: {
+        email: req.user.email,
+        username: req.user.username,
+      },
+    })
+  }
+)
+
+router.get('/login', (req, res) => {
+  res.status(401).json({
+    error: req.flash('error'),
+  })
+})
 
 router.post('/signup', async (req, res) => {
   try {
