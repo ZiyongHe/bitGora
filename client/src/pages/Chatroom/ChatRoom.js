@@ -3,8 +3,8 @@ import React from 'react'
 import './ChatRoom.css'
 import useChat from '../../utils/WebSocketio/useChat'
 
-const ChatRoom = (props) => {
-  const { roomId } = props.match.params // Gets roomId from URL
+const ChatRoom = ({ roomNumber }) => {
+  const roomId = roomNumber // Gets roomId from URL
   const { messages, sendMessage } = useChat(roomId) // Creates a websocket and manages messaging
   const [newMessage, setNewMessage] = React.useState('') // Message to be sent
 
@@ -19,6 +19,12 @@ const ChatRoom = (props) => {
 
   return (
     <div className="chat-room-container">
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
       <h1 className="room-name">Room: {roomId}</h1>
       <div className="messages-container">
         <ol className="messages-list">
