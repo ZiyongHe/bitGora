@@ -47,6 +47,7 @@ app.use(flash())
 
 // Define API routes here
 app.use('/user', require('./routes/user-routes.js'))
+app.use('/post', require('./routes/post-routes.js'))
 
 // This is a fall-back for development mode.
 // Send every other request to the React app.
