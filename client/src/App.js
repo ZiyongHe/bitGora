@@ -20,8 +20,8 @@ function App() {
           <PublicRoute exact path="/signup" component={Signup} />
           <PublicRoute exact path="/chatroom" component={Signup} />
           <PublicRoute exact path="/home" component={Home} />
-          <PublicRoute exact path="/:roomId" component={ChatRoom} />
           <ProtectedRoute exact path="/dashboard" component={Dashboard} />
+          <PublicRoute exact path="/:roomId" component={ChatRoom} />
         </Switch>
       </Router>
     </UserProvider>
