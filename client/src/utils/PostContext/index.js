@@ -17,7 +17,6 @@ function reducer(state, action) {
 export function PostProvider(props) {
   const [posts, dispatch] = useReducer(reducer, {
     allPosts: [],
-    ownedPosts: [],
     err: '',
   })
 
