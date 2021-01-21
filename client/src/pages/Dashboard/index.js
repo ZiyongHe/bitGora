@@ -25,6 +25,7 @@ function Dashboard() {
           err: 'Something went wrong. Unable to load new posts at this time.',
         })
       })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
