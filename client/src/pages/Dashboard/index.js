@@ -1,4 +1,8 @@
 import React, { useState, useEffect } from 'react'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import PostCard from '../../components/PostCard'
 import { getAllPosts } from '../../utils/post-API'
 
 function Dashboard() {
@@ -34,7 +38,22 @@ function Dashboard() {
     console.log(allPosts)
   }, [allPosts])
 
-  return <h1>Dashboard</h1>
+  return (
+    <Container>
+      <Row>
+        <Col>
+          <h1>Dashboard</h1>
+        </Col>
+      </Row>
+      <Row>
+        {allPosts.posts.map((post) => (
+          <Col xs={12} md={6}>
+            <PostCard post={post} editable={true} />
+          </Col>
+        ))}
+      </Row>
+    </Container>
+  )
 }
 
 export default Dashboard
