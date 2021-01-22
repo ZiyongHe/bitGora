@@ -22,7 +22,7 @@ function MainNav() {
       <Navbar.Toggle aria-controls="main-nav" />
       <Navbar.Collapse id="main-nav">
         <Nav>
-          <Link to="/profile" className="nav-link">
+          <Link to="/user/profile" className="nav-link">
             Profile
           </Link>
           <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
@@ -34,7 +34,7 @@ function MainNav() {
   return (
     <Navbar bg="light" expand="lg">
       <Navbar.Brand>
-        <Link to={!user.loading && user.username ? '/dashboard' : '/'}>
+        <Link to={!user.loading && user.username ? '/user/dashboard' : '/'}>
           BitGora
         </Link>
       </Navbar.Brand>
