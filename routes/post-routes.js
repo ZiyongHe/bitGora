@@ -1,11 +1,24 @@
 const router = require('express').Router()
 const mongoose = require('mongoose')
 const { Post } = require('../models')
+const isAuthenticated = require('../config/middleware/isAuthenticated')
 
 router.get('/', async (req, res) => {
   try {
     const posts = await Post.find({})
     res.status(200).send({ data: posts })
+  } catch (err) {
+    res.status(500).send({ err: err.message })
+  }
+})
+
+router.get('/unowned', isAuthenticated, async (req, res) => {
+  try {
+    const posts = await Post.find({})
+    const unownedPosts = posts.filter(
+      (post) => post.userName !== req.user.username
+    )
+    res.status(200).send({ data: unownedPosts })
   } catch (err) {
     res.status(500).send({ err: err.message })
   }
