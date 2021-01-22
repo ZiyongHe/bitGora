@@ -2,14 +2,20 @@ import React from 'react'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 import { Link } from 'react-router-dom'
+import { usePost } from '../../utils/PostContext'
 
 function PostCard({ post, editable }) {
+  const { handleDelete } = usePost()
   const editableLinks = (
     <div className="d-flex">
       <Card.Link href="#" className="btn btn-primary flex-grow-1 mr-3">
         Edit
       </Card.Link>
-      <Button variant="danger" className="flex-grow-1">
+      <Button
+        variant="danger"
+        className="flex-grow-1"
+        onClick={() => handleDelete(post._id)}
+      >
         Delete
       </Button>
     </div>
