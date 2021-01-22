@@ -34,7 +34,7 @@ function PostCard({ post, editable }) {
             20.00 (CAD)
           </Card.Text>
         </div>
-        <Link to={`/post/${post._id}`}>View more</Link>
+        <Link to={`/user/post/view/${post._id}`}>View more</Link>
       </Card.Body>
       <Card.Body className="pt-0">
         <hr />

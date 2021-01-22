@@ -7,7 +7,6 @@ import MainNav from './components/MainNav'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import UserRoutes from './routes/UserRoutes'
-import ViewPost from './pages/ViewPost'
 import Home from './pages/Home/Home'
 import ChatRoom from './pages/Chatroom/ChatRoom'
 
@@ -20,7 +19,6 @@ function App() {
           <PublicRoute exact path="/" component={Login} />
           <PublicRoute exact path="/signup" component={Signup} />
           <ProtectedRoute path="/user" component={UserRoutes} />
-          <ProtectedRoute exact path="/post/:id" component={ViewPost} />
 
           {/* Currently unused */}
           <PublicRoute exact path="/home" component={Home} />

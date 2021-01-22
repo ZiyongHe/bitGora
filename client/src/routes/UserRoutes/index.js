@@ -4,6 +4,7 @@ import { Switch } from 'react-router-dom'
 import ProtectedRoute from '../../components/ProtectedRoute'
 import Dashboard from '../../pages/Dashboard'
 import Profile from '../../pages/Profile'
+import PostRoutes from '../PostRoutes'
 
 function UserRoutes({ match }) {
   console.log(match.path)
@@ -20,6 +21,7 @@ function UserRoutes({ match }) {
           path={`${match.path}/profile`}
           component={Profile}
         />
+        <ProtectedRoute path={`${match.path}/post`} component={PostRoutes} />
       </Switch>
     </PostProvider>
   )
