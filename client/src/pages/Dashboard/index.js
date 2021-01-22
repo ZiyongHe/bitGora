@@ -6,15 +6,15 @@ import PostCard from '../../components/PostCard'
 import { useUser } from '../../utils/UserContext'
 import { usePost } from '../../utils/PostContext'
 import { SET_ALL_POSTS, SET_ERR } from '../../utils/PostContext/actions'
-import { getAllPosts } from '../../utils/post-API'
 import { markOwnedPosts } from '../../utils/post-formatter'
+import { getUnownedPosts } from '../../utils/post-API'
 
 function Dashboard() {
   const [posts, dispatch] = usePost()
   const [user] = useUser()
 
   useEffect(() => {
-    getAllPosts()
+    getUnownedPosts()
       .then((result) => {
         if (result.err) {
           dispatch({ type: SET_ERR, err: result.err })

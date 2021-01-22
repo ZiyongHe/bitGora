@@ -1,3 +1,3 @@
-export function getAllPosts() {
-  return fetch('/post/').then((response) => response.json())
+export function getUnownedPosts() {
+  return fetch('/post/unowned').then((response) => response.json())
 }
