@@ -5,3 +5,7 @@ export function getUnownedPosts() {
 export function getOwnedPosts() {
   return fetch('/post/owned').then((response) => response.json())
 }
+
+export function viewPost(id) {
+  return fetch(`/post/view/${id}`).then((response) => response.json())
+}
