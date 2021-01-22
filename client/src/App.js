@@ -9,6 +9,7 @@ import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Dashboard from './pages/Dashboard'
 import Profile from './pages/Profile'
+import ViewPost from './pages/ViewPost'
 import Home from './pages/Home/Home'
 import ChatRoom from './pages/Chatroom/ChatRoom'
 
@@ -25,6 +26,7 @@ function App() {
             <PublicRoute exact path="/home" component={Home} />
             <ProtectedRoute exact path="/dashboard" component={Dashboard} />
             <ProtectedRoute exact path="/profile" component={Profile} />
+            <ProtectedRoute exact path="/post/:id" component={ViewPost} />
             <PublicRoute exact path="/:roomId" component={ChatRoom} />
           </Switch>
         </Router>
