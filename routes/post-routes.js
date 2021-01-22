@@ -24,6 +24,15 @@ router.get('/unowned', isAuthenticated, async (req, res) => {
   }
 })
 
+router.get('/owned', isAuthenticated, async (req, res) => {
+  try {
+    const ownedPosts = await Post.find({ userName: req.user.username })
+    res.status(200).send({ data: ownedPosts })
+  } catch (err) {
+    res.status(500).send({ err: err.message })
+  }
+})
+
 router.post('/', async (req, res) => {
   try {
     const newPost = await Post.create(req.body)
