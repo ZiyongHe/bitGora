@@ -33,7 +33,11 @@ function MainNav() {
 
   return (
     <Navbar bg="light" expand="lg">
-      <Navbar.Brand>BitGora</Navbar.Brand>
+      <Navbar.Brand>
+        <Link to={!user.loading && user.username ? '/dashboard' : '/'}>
+          BitGora
+        </Link>
+      </Navbar.Brand>
       {!user.loading && user.username ? userMenu : <></>}
     </Navbar>
   )
