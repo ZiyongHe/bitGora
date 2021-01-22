@@ -6,7 +6,7 @@ const PostContext = createContext()
 function reducer(state, action) {
   switch (action.type) {
     case SET_UNOWNED_POSTS:
-      return { ...state, err: '', allPosts: action.allPosts }
+      return { ...state, err: '', unownedPosts: action.unownedPosts }
     case SET_OWNED_POSTS:
       return { ...state, err: '', ownedPosts: action.ownedPosts }
     case SET_ERR:
@@ -18,7 +18,7 @@ function reducer(state, action) {
 
 export function PostProvider(props) {
   const [posts, dispatch] = useReducer(reducer, {
-    allPosts: [],
+    unownedPosts: [],
     ownedPosts: [],
     err: '',
   })

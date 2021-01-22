@@ -18,7 +18,7 @@ function Dashboard() {
         } else {
           dispatch({
             type: SET_UNOWNED_POSTS,
-            allPosts: result.data,
+            unownedPosts: result.data,
           })
         }
       })
@@ -43,7 +43,7 @@ function Dashboard() {
         </Col>
       </Row>
       <Row>
-        {posts.allPosts.map((post) => (
+        {posts.unownedPosts.map((post) => (
           <Col xs={12} md={6} key={post._id}>
             <PostCard post={post} editable={false} />
           </Col>
