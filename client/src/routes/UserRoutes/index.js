@@ -7,6 +7,8 @@ import Profile from '../../pages/Profile'
 import PostRoutes from '../PostRoutes'
 
 function UserRoutes({ match }) {
+  // When defining child routes,
+  // use this match.path property to construct the route
   console.log(match.path)
   return (
     <PostProvider>
@@ -21,7 +23,11 @@ function UserRoutes({ match }) {
           path={`${match.path}/profile`}
           component={Profile}
         />
+
+        {/* Route for post routes */}
         <ProtectedRoute path={`${match.path}/post`} component={PostRoutes} />
+
+        {/* Route for chat routes */}
       </Switch>
     </PostProvider>
   )
