@@ -8,6 +8,7 @@ import MainNav from './components/MainNav'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Dashboard from './pages/Dashboard'
+import Profile from './pages/Profile'
 import Home from './pages/Home/Home'
 import ChatRoom from './pages/Chatroom/ChatRoom'
 
@@ -23,6 +24,7 @@ function App() {
             <PublicRoute exact path="/chatroom" component={Signup} />
             <PublicRoute exact path="/home" component={Home} />
             <ProtectedRoute exact path="/dashboard" component={Dashboard} />
+            <ProtectedRoute exact path="/profile" component={Profile} />
             <PublicRoute exact path="/:roomId" component={ChatRoom} />
           </Switch>
         </Router>
