@@ -29,7 +29,7 @@ function CreatePost() {
             </Form.Group>
             <Form.Group controlId="price">
               <Form.Label>Price</Form.Label>
-              <Form.Control type="number" />
+              <Form.Control type="number" min="0" />
             </Form.Group>
             <Button variant="primary" type="submit">
               Create Post
