@@ -8,7 +8,7 @@ import { SET_OWNED_POSTS, SET_ERR } from '../../utils/PostContext/actions'
 import { getOwnedPosts } from '../../utils/post-API'
 
 function Profile() {
-  const [posts, dispatch] = usePost()
+  const { posts, dispatch } = usePost()
 
   useEffect(() => {
     getOwnedPosts()

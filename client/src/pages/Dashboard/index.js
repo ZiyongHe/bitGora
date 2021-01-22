@@ -8,7 +8,7 @@ import { SET_UNOWNED_POSTS, SET_ERR } from '../../utils/PostContext/actions'
 import { getUnownedPosts } from '../../utils/post-API'
 
 function Dashboard() {
-  const [posts, dispatch] = usePost()
+  const { posts, dispatch } = usePost()
 
   useEffect(() => {
     getUnownedPosts()

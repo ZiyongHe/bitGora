@@ -1,5 +1,11 @@
 import React, { useReducer, createContext, useContext } from 'react'
-import { SET_UNOWNED_POSTS, SET_OWNED_POSTS, SET_ERR } from './actions.js'
+import {
+  SET_UNOWNED_POSTS,
+  SET_OWNED_POSTS,
+  DELETE_OWNED_POST,
+  SET_ERR,
+} from './actions.js'
+import { deletePost } from '../post-API.js'
 
 const PostContext = createContext()
 
@@ -9,6 +15,14 @@ function reducer(state, action) {
       return { ...state, err: '', unownedPosts: action.unownedPosts }
     case SET_OWNED_POSTS:
       return { ...state, err: '', ownedPosts: action.ownedPosts }
+    case DELETE_OWNED_POST:
+      return {
+        ...state,
+        err: '',
+        ownedPosts: state.ownedPosts.filter(
+          (ownedPost) => ownedPost._id !== action._id
+        ),
+      }
     case SET_ERR:
       return { ...state, err: action.err }
     default:
@@ -23,7 +37,29 @@ export function PostProvider(props) {
     err: '',
   })
 
-  return <PostContext.Provider value={[posts, dispatch]} {...props} />
+  const handleDelete = (id) => {
+    deletePost(id)
+      .then((response) => {
+        if (response.err) {
+          dispatch({ type: SET_ERR, err: response.err })
+        } else {
+          dispatch({ type: DELETE_OWNED_POST, _id: id })
+        }
+      })
+      .catch(() => {
+        dispatch({
+          type: SET_ERR,
+          err: 'Something went wrong. Unable to delete post at this time.',
+        })
+      })
+  }
+
+  return (
+    <PostContext.Provider
+      value={{ posts, dispatch, handleDelete }}
+      {...props}
+    />
+  )
 }
 
 export function usePost() {
