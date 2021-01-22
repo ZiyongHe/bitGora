@@ -1,3 +1,4 @@
 export const SET_UNOWNED_POSTS = 'SET_UNOWNED_POSTS'
 export const SET_OWNED_POSTS = 'SET_OWNED_POSTS'
+export const DELETE_OWNED_POST = 'DELETE_OWNED_POST'
 export const SET_ERR = 'SET_ERR'
