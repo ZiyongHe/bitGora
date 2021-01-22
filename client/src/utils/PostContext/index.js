@@ -1,11 +1,11 @@
 import React, { useReducer, createContext, useContext } from 'react'
-import { SET_ALL_POSTS, SET_ERR } from './actions.js'
+import { SET_UNOWNED_POSTS, SET_ERR } from './actions.js'
 
 const PostContext = createContext()
 
 function reducer(state, action) {
   switch (action.type) {
-    case SET_ALL_POSTS:
+    case SET_UNOWNED_POSTS:
       return { ...state, err: '', allPosts: action.allPosts }
     case SET_ERR:
       return { ...state, err: action.err }

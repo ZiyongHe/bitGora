@@ -3,15 +3,12 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import PostCard from '../../components/PostCard'
-import { useUser } from '../../utils/UserContext'
 import { usePost } from '../../utils/PostContext'
-import { SET_ALL_POSTS, SET_ERR } from '../../utils/PostContext/actions'
-import { markOwnedPosts } from '../../utils/post-formatter'
+import { SET_UNOWNED_POSTS, SET_ERR } from '../../utils/PostContext/actions'
 import { getUnownedPosts } from '../../utils/post-API'
 
 function Dashboard() {
   const [posts, dispatch] = usePost()
-  const [user] = useUser()
 
   useEffect(() => {
     getUnownedPosts()
@@ -20,8 +17,8 @@ function Dashboard() {
           dispatch({ type: SET_ERR, err: result.err })
         } else {
           dispatch({
-            type: SET_ALL_POSTS,
-            allPosts: markOwnedPosts(user.username, result.data),
+            type: SET_UNOWNED_POSTS,
+            allPosts: result.data,
           })
         }
       })
@@ -47,8 +44,8 @@ function Dashboard() {
       </Row>
       <Row>
         {posts.allPosts.map((post) => (
-          <Col xs={12} md={6} key={post.postData._id}>
-            <PostCard post={post.postData} editable={post.owned} />
+          <Col xs={12} md={6} key={post._id}>
+            <PostCard post={post} editable={false} />
           </Col>
         ))}
       </Row>
