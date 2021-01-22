@@ -33,10 +33,6 @@ function ViewPost() {
       })
   }, [])
 
-  useEffect(() => {
-    console.log(post)
-  }, [post])
-
   return <h1>{post.postData.name}</h1>
 }
 
