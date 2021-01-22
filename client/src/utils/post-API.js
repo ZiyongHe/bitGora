@@ -9,3 +9,9 @@ export function getOwnedPosts() {
 export function viewPost(id) {
   return fetch(`/post/view/${id}`).then((response) => response.json())
 }
+
+export function deletePost(id) {
+  return fetch(`/post/${id}`, {
+    method: 'DELETE',
+  }).then((response) => response.json())
+}
