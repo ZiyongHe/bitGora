@@ -3,10 +3,12 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
+import { usePost } from '../../utils/PostContext'
 import { useParams } from 'react-router-dom'
 import { viewPost } from '../../utils/post-API'
 
 function ViewPost() {
+  const { handleDelete } = usePost()
   const { id } = useParams()
   const [post, setPost] = useState({
     postData: {
@@ -42,7 +44,11 @@ function ViewPost() {
       <Button variant="primary" className="flex-grow-1 mr-3">
         Edit
       </Button>
-      <Button variant="danger" className="flex-grow-1">
+      <Button
+        variant="danger"
+        className="flex-grow-1"
+        onClick={() => handleDelete(post.postData._id)}
+      >
         Delete
       </Button>
     </div>
