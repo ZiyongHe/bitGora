@@ -31,10 +31,6 @@ function Dashboard() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  useEffect(() => {
-    console.log(posts)
-  }, [posts])
-
   return (
     <Container>
       <Row>
