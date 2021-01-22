@@ -21,10 +21,12 @@ function App() {
           <Switch>
             <PublicRoute exact path="/" component={Login} />
             <PublicRoute exact path="/signup" component={Signup} />
-            <PublicRoute exact path="/chatroom" component={Signup} />
-            <PublicRoute exact path="/home" component={Home} />
             <ProtectedRoute path="/user" component={UserRoutes} />
             <ProtectedRoute exact path="/post/:id" component={ViewPost} />
+
+            {/* Currently unused */}
+            <PublicRoute exact path="/home" component={Home} />
+            <PublicRoute exact path="/chatroom" component={Signup} />
             <PublicRoute exact path="/:roomId" component={ChatRoom} />
           </Switch>
         </Router>
