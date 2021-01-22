@@ -33,6 +33,24 @@ router.get('/owned', isAuthenticated, async (req, res) => {
   }
 })
 
+router.get('/view/:id', isAuthenticated, async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id)
+    if (!post) {
+      return res.status(400).send({ err: 'Post listing not found.' })
+    }
+
+    res.status(200).send({
+      data: {
+        postData: post,
+        isOwned: post.userName === req.user.username,
+      },
+    })
+  } catch (err) {
+    res.status(500).send({ err: err.message })
+  }
+})
+
 router.post('/', async (req, res) => {
   try {
     const newPost = await Post.create(req.body)
