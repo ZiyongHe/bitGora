@@ -27,6 +27,7 @@ const app = express()
 // Define middleware here
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
+app.use(require('express-form-data').parse())
 
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === 'production') {
