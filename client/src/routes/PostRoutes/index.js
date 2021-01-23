@@ -3,6 +3,7 @@ import { Switch } from 'react-router-dom'
 import ProtectedRoute from '../../components/ProtectedRoute'
 import ViewPost from '../../pages/ViewPost'
 import CreatePost from '../../pages/CreatePost'
+import EditPost from '../../pages/EditPost'
 
 function PostRoutes({ match }) {
   return (
@@ -16,6 +17,11 @@ function PostRoutes({ match }) {
         exact
         path={`${match.path}/create`}
         component={CreatePost}
+      />
+      <ProtectedRoute
+        exact
+        path={`${match.path}/edit/:id`}
+        component={EditPost}
       />
     </Switch>
   )
