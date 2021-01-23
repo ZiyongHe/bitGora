@@ -8,6 +8,7 @@ export function UserProvider(props) {
     loading: true,
     username: '',
     email: '',
+    chatRoom: [],
   })
 
   useEffect(() => {

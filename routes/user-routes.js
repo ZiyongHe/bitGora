@@ -13,6 +13,7 @@ router.post(
       data: {
         email: req.user.email,
         username: req.user.username,
+        // chatRoom: req.user.chatRoom,
       },
     })
   }
@@ -28,9 +29,13 @@ router.get('/login', (req, res) => {
 // Check if currently logged in
 router.get('/current-session', (req, res) => {
   if (req.user) {
-    return res
-      .status(200)
-      .json({ data: { email: req.user.email, username: req.user.username } })
+    return res.status(200).json({
+      data: {
+        email: req.user.email,
+        username: req.user.username,
+        // chatRoom: req.user.chatRoom,
+      },
+    })
   } else {
     return res.status(200).json({ data: {} })
   }

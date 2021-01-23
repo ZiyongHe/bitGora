@@ -4,7 +4,6 @@ import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import { useUser } from '../../utils/UserContext'
 import { logout } from '../../utils/user-API'
-import Dashboard from '../../pages/Dashboard/index'
 
 function MainNav() {
   const [user, setUser] = useUser()
@@ -36,7 +35,6 @@ function MainNav() {
         <Navbar.Brand>BitGora</Navbar.Brand>
         {!user.loading && user.username ? userMenu : <></>}
       </Navbar>
-      {!user.loading && user.username ? <Dashboard /> : <></>}
     </>
   )
 }

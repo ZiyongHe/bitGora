@@ -1,56 +1,48 @@
 const router = require('express').Router()
-const { Message } = require('../models')
+const { ChatRoom, Post, User } = require('../models')
 
-// Failure route to deliver error message
-router.get('/:roomId', (req, res) => {
-  try {
-    const message
-  }
+// *************get messages of chatroom***************
+router.get('/messages/:roomId', (req, res) => {
+  const RoomId = req.params.roomId
+  ChatRoom.findOne({ _id: RoomId })
+    .populate('messages')
+    .then((doc) => res.json(doc))
 })
 
-// Check if currently logged in
-router.get('/current-session', (req, res) => {
-  if (req.user) {
-    return res
-      .status(200)
-      .json({ data: { email: req.user.email, username: req.user.username } })
-  } else {
-    return res.status(200).json({ data: {} })
-  }
+// ****************get user's chatroom list*******************
+router.get('/list/:username', (req, res) => {
+  User.findOne({ username: req.params.username })
+    .populate('ChatRoom')
+    .then((doc) => {
+      return res.json(doc.ChatRoom)
+    })
 })
 
-router.post('/signup', async (req, res) => {
-  try {
-    const existingEmail = await User.findOne({ email: req.body.email })
-    if (existingEmail) {
-      return res
-        .status(405)
-        .json({ err: 'An account under that email already exists.' })
-    }
+// *************creating new chatroom******************
+router.post('/', (req, res) => {
+  // user1 is seller, user2 is inquirier
+  Post.findOne({ _id: req.body.postId }).then((docs) => {
+    const user1 = docs.username
+    const user2 = req.body.username
+    const chatroom = { members: [user1, user2], messages: [] }
 
-    const existingUsername = await User.findOne({ username: req.body.username })
-    if (existingUsername) {
-      return res.status(405).json({
-        err: 'Username taken. Please select a different username.',
+    // create chatroom and get chatroom id
+    let roomId
+    ChatRoom.create(chatroom).then((doc) => {
+      roomId = doc._id
+
+      // save chatroom id to both users
+      User.findOne({ username: user1 }).then((doc) => {
+        console.log(doc)
+        doc.ChatRoom.push(roomId)
+        doc.save()
       })
-    }
-
-    const newUser = await User.create(req.body)
-    if (newUser) {
-      res.redirect(307, '/user/login')
-    } else {
-      res.status(500).json({ err: "Can't create your account at this time. " })
-    }
-  } catch (err) {
-    console.log(err)
-    res.status(500).json({ err: err.message })
-  }
-})
-
-router.get('/logout', (req, res) => {
-  req.logout()
-  res.status(200).json({
-    data: 'Successfully logged out.',
+      User.findOne({ username: user2 }).then((doc) => {
+        doc.ChatRoom.push(roomId)
+        doc.save()
+      })
+      return res.json(doc)
+    })
   })
 })
 

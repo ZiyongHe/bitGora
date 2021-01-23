@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import ChatRoom from './../Chatroom/ChatRoom'
@@ -9,12 +8,15 @@ import './Chat.css'
 const Chat = () => {
   const [roomNumber, setRoomNumber] = React.useState('')
   const [submitRoomNumber, setSubmitRoomNumber] = React.useState('')
+
   const handleroomNumberChange = (event) => {
     setRoomNumber(event.target.value)
   }
 
   const handleEnterButton = (e) => {
-    setSubmitRoomNumber(roomNumber)
+    if (roomNumber) {
+      setSubmitRoomNumber(roomNumber)
+    }
     setRoomNumber('')
   }
 
@@ -24,7 +26,6 @@ const Chat = () => {
         <input
           type="text"
           placeholder="Room"
-          // value={roomNumber}
           onChange={handleroomNumberChange}
           className="text-input-field"
         />
