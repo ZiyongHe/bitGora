@@ -9,7 +9,7 @@ import PostRoutes from '../PostRoutes'
 function UserRoutes({ match }) {
   // When defining child routes,
   // use this match.path property to construct the route
-  console.log(match.path)
+  // console.log(match.path)
   return (
     <PostProvider>
       <Switch>
