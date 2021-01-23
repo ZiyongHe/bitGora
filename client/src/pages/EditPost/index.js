@@ -7,9 +7,11 @@ import Button from 'react-bootstrap/Button'
 import { useParams } from 'react-router-dom'
 import { viewPost, updatePost } from '../../utils/post-API'
 import { useHistory } from 'react-router-dom'
+import { usePost } from '../../utils/PostContext'
 
 function EditPost() {
   const history = useHistory()
+  const { handleDelete } = usePost()
   const { id } = useParams()
   const [post, setPost] = useState({
     _id: '',
@@ -140,6 +142,14 @@ function EditPost() {
             </Form.Group>
             <Button variant="primary" type="submit">
               Save
+            </Button>
+            <Button
+              variant="danger"
+              onClick={() => {
+                handleDelete(post._id, () => history.push('/user/profile'))
+              }}
+            >
+              Delete
             </Button>
           </Form>
         </Col>
