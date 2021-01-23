@@ -63,6 +63,7 @@ function ViewPost() {
   return (
     <Container>
       <Row>
+        <p>{err}</p>
         <Col>
           <h1>{post.postData.name}</h1>
         </Col>
