@@ -29,9 +29,8 @@ function EditPost() {
         setPost(result.data.postData)
       }
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-  useEffect(() => console.log(post), [post])
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -54,6 +53,13 @@ function EditPost() {
             <Form.Group controlId="name">
               <Form.Label>Name</Form.Label>
               <Form.Control
+                value={post.name}
+                onChange={(e) =>
+                  setPost((prevState) => ({
+                    ...prevState,
+                    name: e.target.value,
+                  }))
+                }
                 name="name"
                 type="text"
                 placeholder="My Amazing Product"
@@ -64,11 +70,46 @@ function EditPost() {
             </Form.Group>
             <Form.Group controlId="description">
               <Form.Label>Description</Form.Label>
-              <Form.Control as="textarea" name="description" rows={4} />
+              <Form.Control
+                as="textarea"
+                name="description"
+                value={post.description}
+                onChange={(e) =>
+                  setPost((prevState) => ({
+                    ...prevState,
+                    description: e.target.value,
+                  }))
+                }
+                rows={4}
+              />
             </Form.Group>
             <Form.Group controlId="price">
               <Form.Label>Price</Form.Label>
-              <Form.Control type="number" min="0" name="price" />
+              <Form.Control
+                type="number"
+                min="0"
+                name="price"
+                value={post.price}
+                onChange={(e) =>
+                  setPost((prevState) => ({
+                    ...prevState,
+                    price: e.target.value,
+                  }))
+                }
+              />
+            </Form.Group>
+            <Form.Group controlId="sold">
+              <Form.Check
+                checked={post.sold}
+                type="checkbox"
+                label="Mark as sold?"
+                onChange={(e) =>
+                  setPost((prevState) => ({
+                    ...prevState,
+                    sold: !prevState.sold,
+                  }))
+                }
+              />
             </Form.Group>
             <Button variant="primary" type="submit">
               Save
