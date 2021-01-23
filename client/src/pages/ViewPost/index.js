@@ -37,6 +37,7 @@ function ViewPost() {
       .catch(() => {
         setErr('Something went wrong. Cannot view post data.')
       })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const editableLinks = (
