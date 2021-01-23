@@ -51,6 +51,7 @@ function EditPost() {
   const handleSubmit = (e) => {
     e.preventDefault()
     const form = new FormData(e.target)
+    form.append('_id', post._id)
     updatePost(form).then((response) => console.log(response))
   }
 
