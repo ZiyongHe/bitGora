@@ -79,19 +79,22 @@ router.post('/', isAuthenticated, async (req, res) => {
 
 router.patch('/', async (req, res) => {
   try {
-    const _id = mongoose.Types.ObjectId(req.body._id)
-    const post = await Post.find({ _id })
-    if (post.length === 0) {
-      return res.status(404).send({ err: 'Post listing not found.' })
-    }
-    Post.findByIdAndUpdate(
-      req.body._id,
-      req.body,
-      { new: true },
-      (_, result) => {
-        res.status(200).send({ data: result })
-      }
-    )
+    console.log(req.body)
+    console.log(req.files)
+    // const _id = mongoose.Types.ObjectId(req.body._id)
+    // const post = await Post.find({ _id })
+    // if (post.length === 0) {
+    //   return res.status(404).send({ err: 'Post listing not found.' })
+    // }
+    // Post.findByIdAndUpdate(
+    //   req.body._id,
+    //   req.body,
+    //   { new: true },
+    //   (_, result) => {
+    //     res.status(200).send({ data: result })
+    //   }
+    // )
+    res.status(200).send('Received request!')
   } catch (err) {
     res.status(500).send({ err: err.message })
   }

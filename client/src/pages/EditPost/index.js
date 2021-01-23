@@ -5,7 +5,7 @@ import Col from 'react-bootstrap/Col'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import { useParams } from 'react-router-dom'
-import { viewPost } from '../../utils/post-API'
+import { viewPost, updatePost } from '../../utils/post-API'
 
 function EditPost() {
   const { id } = useParams()
@@ -51,9 +51,7 @@ function EditPost() {
   const handleSubmit = (e) => {
     e.preventDefault()
     const form = new FormData(e.target)
-    console.log(form.get('image'))
-    form.set('image', '')
-    console.log(form.get('image'))
+    updatePost(form).then((response) => console.log(response))
   }
 
   return (
