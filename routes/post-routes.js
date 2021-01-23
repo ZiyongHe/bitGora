@@ -77,7 +77,7 @@ router.post('/', isAuthenticated, async (req, res) => {
   }
 })
 
-router.patch('/', async (req, res) => {
+router.patch('/', isAuthenticated, async (req, res) => {
   try {
     // console.log(req.body)
     // console.log(req.files)
@@ -136,7 +136,7 @@ router.patch('/', async (req, res) => {
   }
 })
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', isAuthenticated, async (req, res) => {
   try {
     const post = await Post.findById(req.params.id)
     if (!post) {
