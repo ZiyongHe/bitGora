@@ -23,3 +23,10 @@ export function createPost(formData) {
     body: formData,
   }).then((response) => response.json())
 }
+
+export function updatePost(formData) {
+  return fetch('/post', {
+    method: 'PATCH',
+    body: formData,
+  }).then((response) => response.json())
+}
