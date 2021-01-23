@@ -79,22 +79,58 @@ router.post('/', isAuthenticated, async (req, res) => {
 
 router.patch('/', async (req, res) => {
   try {
-    console.log(req.body)
-    console.log(req.files)
-    // const _id = mongoose.Types.ObjectId(req.body._id)
-    // const post = await Post.find({ _id })
-    // if (post.length === 0) {
-    //   return res.status(404).send({ err: 'Post listing not found.' })
-    // }
-    // Post.findByIdAndUpdate(
-    //   req.body._id,
-    //   req.body,
-    //   { new: true },
-    //   (_, result) => {
-    //     res.status(200).send({ data: result })
-    //   }
-    // )
-    res.status(200).send('Received request!')
+    // console.log(req.body)
+    // console.log(req.files)
+    const post = await Post.findById(req.body._id)
+    if (!post) {
+      return res.status(404).send({ err: 'Post listing not found.' })
+    }
+    let postChanges = { ...req.body }
+    // means that user would like to update the image
+    if (req.files.image.size > 0) {
+      // if uploading a new image, must destroy old image
+      cloudinary.uploader.destroy(
+        post.image.publicId,
+        async function (err, result) {
+          if (err) {
+            return res.status(500).send({ err: err.message })
+          }
+
+          // gets path of the new image
+          const imagePath = req.files.image.path
+          // uploads the new image
+          cloudinary.uploader.upload(imagePath, async function (err, result) {
+            if (err) {
+              return res.status(500).send({ err: err.message })
+            }
+            // save image references to the post changes
+            const image = { publicId: result.public_id, url: result.url }
+            postChanges = {
+              ...postChanges,
+              image,
+            }
+
+            // make update
+            Post.updateOne(
+              { _id: mongoose.Types.ObjectId(postChanges._id) },
+              postChanges,
+              (_, result) => {
+                res.status(200).send({ data: result })
+              }
+            )
+          })
+        }
+      )
+    } else {
+      // if no new image, just use the body
+      Post.updateOne(
+        { _id: mongoose.Types.ObjectId(postChanges._id) },
+        postChanges,
+        (_, result) => {
+          res.status(200).send({ data: result })
+        }
+      )
+    }
   } catch (err) {
     res.status(500).send({ err: err.message })
   }
