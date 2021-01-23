@@ -47,6 +47,7 @@ app.use(flash())
 
 // Define API routes here
 app.use('/user', require('./routes/user-routes.js'))
+app.use('/chat', require('./routes/message-routes.js'))
 
 // This is a fall-back for development mode.
 // Send every other request to the React app.
@@ -75,7 +76,7 @@ io.on('connection', (socket) => {
   // Listen for new messages
   socket.on(NEW_CHAT_MESSAGE_EVENT, async (data) => {
     // Save to database
-    const newMessage = new Message(data)
+    const newMessage = new Message({ username: data.username, body: data.body })
     await newMessage.save()
     // Broadcast back to all connected clients
     io.in(roomId).emit(NEW_CHAT_MESSAGE_EVENT, newMessage.toJSON())

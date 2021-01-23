@@ -1,7 +1,12 @@
 import React from 'react'
+import Chat from '../../pages/Chat/Chat'
 
 function Dashboard() {
-  return <h1>Dashboard</h1>
+  return (
+    <>
+      <Chat />
+    </>
+  )
 }
 
 export default Dashboard

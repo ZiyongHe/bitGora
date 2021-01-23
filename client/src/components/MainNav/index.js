@@ -1,5 +1,5 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, link } from 'react-router-dom'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import { useUser } from '../../utils/UserContext'
@@ -21,6 +21,7 @@ function MainNav() {
     <>
       <Navbar.Toggle aria-controls="main-nav" />
       <Navbar.Collapse id="main-nav">
+        <span>Welcome {user.username}</span>
         <Nav>
           <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
         </Nav>
@@ -29,10 +30,12 @@ function MainNav() {
   )
 
   return (
-    <Navbar bg="light" expand="lg">
-      <Navbar.Brand>BitGora</Navbar.Brand>
-      {!user.loading && user.username ? userMenu : <></>}
-    </Navbar>
+    <>
+      <Navbar bg="light" expand="lg">
+        <Navbar.Brand>BitGora</Navbar.Brand>
+        {!user.loading && user.username ? userMenu : <></>}
+      </Navbar>
+    </>
   )
 }
 
