@@ -77,7 +77,7 @@ router.post('/', isAuthenticated, async (req, res) => {
   }
 })
 
-router.put('/', async (req, res) => {
+router.patch('/', async (req, res) => {
   try {
     const _id = mongoose.Types.ObjectId(req.body._id)
     const post = await Post.find({ _id })
