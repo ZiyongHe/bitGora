@@ -4,7 +4,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import { usePost } from '../../utils/PostContext'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { viewPost } from '../../utils/post-API'
 
 function ViewPost() {
@@ -42,9 +42,12 @@ function ViewPost() {
 
   const editableLinks = (
     <div className="d-flex">
-      <Button variant="primary" className="flex-grow-1 mr-3">
+      <Link
+        to={`/user/post/edit/${post.postData._id}`}
+        className="btn btn-primary flex-grow-1 mr-3"
+      >
         Edit
-      </Button>
+      </Link>
       <Button
         variant="danger"
         className="flex-grow-1"

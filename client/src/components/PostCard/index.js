@@ -8,9 +8,12 @@ function PostCard({ post, editable }) {
   const { handleDelete } = usePost()
   const editableLinks = (
     <div className="d-flex">
-      <Card.Link href="#" className="btn btn-primary flex-grow-1 mr-3">
+      <Link
+        to={`/user/post/edit/${post._id}`}
+        className="btn btn-primary flex-grow-1 mr-3"
+      >
         Edit
-      </Card.Link>
+      </Link>
       <Button
         variant="danger"
         className="flex-grow-1"
