@@ -5,12 +5,14 @@ import Col from 'react-bootstrap/Col'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import { createPost } from '../../utils/post-API'
+import { useHistory } from 'react-router-dom'
 
 function CreatePost() {
+  const history = useHistory()
   const handleSubmit = (e) => {
     e.preventDefault()
     const formData = new FormData(e.target)
-    createPost(formData).then((response) => console.log(response))
+    createPost(formData).then((response) => history.push('/user/profile'))
   }
 
   return (
