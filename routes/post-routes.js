@@ -99,15 +99,20 @@ router.put('/', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
   try {
-    const _id = mongoose.Types.ObjectId(req.params.id)
-    const post = await Post.find({
-      _id,
-    })
-    if (post.length === 0) {
+    const post = await Post.findById(req.params.id)
+    if (!post) {
       return res.status(404).send({ err: 'Post listing not found.' })
     }
-    await Post.deleteOne({ _id })
-    res.status(200).send({ data: post })
+    // delete image from cloudinary
+    cloudinary.uploader.destroy(post.image.publicId, async function (err) {
+      if (err) {
+        res.status(500).send({ err: err.message })
+      } else {
+        // then delete post
+        await Post.deleteOne({ _id: mongoose.Types.ObjectId(req.params.id) })
+        res.status(200).send({ data: post })
+      }
+    })
   } catch (err) {
     res.status(500).send({ err: err.message })
   }
