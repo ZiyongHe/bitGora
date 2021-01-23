@@ -82,7 +82,12 @@ function EditPost() {
               />
             </Form.Group>
             <Form.Group controlId="image">
-              <img src={post.image.url} alt={`Original ${post.name}`} />
+              <img
+                src={post.image.url}
+                alt={`Original ${post.name}`}
+                width="100%"
+                height="auto"
+              />
               <Form.File
                 name="image"
                 label="Choose new image"
