@@ -37,13 +37,14 @@ export function PostProvider(props) {
     err: '',
   })
 
-  const handleDelete = (id) => {
+  const handleDelete = (id, callback) => {
     deletePost(id)
       .then((response) => {
         if (response.err) {
           dispatch({ type: SET_ERR, err: response.err })
         } else {
           dispatch({ type: DELETE_OWNED_POST, _id: id })
+          callback()
         }
       })
       .catch(() => {
