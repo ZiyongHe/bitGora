@@ -70,7 +70,7 @@ function ViewPost() {
       <Row>
         <Col xs={12} lg={6}>
           <img
-            src={post.postData.image}
+            src={post.postData.image.url}
             alt={post.postData.name}
             width="100%"
             height="auto"

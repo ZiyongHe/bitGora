@@ -29,7 +29,7 @@ function PostCard({ post, editable }) {
 
   return (
     <Card>
-      <Card.Img variant="top" src={post.image} alt={post.name} />
+      <Card.Img variant="top" src={post.image.url} alt={post.name} />
       <Card.Body className="pb-0">
         <div className="d-sm-flex pb-3">
           <Card.Title className="flex-grow-1">{post.name}</Card.Title>
