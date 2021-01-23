@@ -4,8 +4,15 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import { createPost } from '../../utils/post-API'
 
 function CreatePost() {
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const formData = new FormData(e.target)
+    createPost(formData).then((response) => console.log(response))
+  }
+
   return (
     <Container>
       <Row>
@@ -15,21 +22,25 @@ function CreatePost() {
       </Row>
       <Row>
         <Col>
-          <Form>
+          <Form onSubmit={handleSubmit}>
             <Form.Group controlId="name">
               <Form.Label>Name</Form.Label>
-              <Form.Control type="text" placeholder="My Amazing Product" />
+              <Form.Control
+                name="name"
+                type="text"
+                placeholder="My Amazing Product"
+              />
             </Form.Group>
             <Form.Group controlId="image">
-              <Form.File label="Image of Product" />
+              <Form.File name="image" label="Image of Product" />
             </Form.Group>
             <Form.Group controlId="description">
               <Form.Label>Description</Form.Label>
-              <Form.Control as="textarea" rows={4} />
+              <Form.Control as="textarea" name="description" rows={4} />
             </Form.Group>
             <Form.Group controlId="price">
               <Form.Label>Price</Form.Label>
-              <Form.Control type="number" min="0" />
+              <Form.Control type="number" min="0" name="price" />
             </Form.Group>
             <Button variant="primary" type="submit">
               Create Post
