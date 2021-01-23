@@ -6,8 +6,10 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import { useParams } from 'react-router-dom'
 import { viewPost, updatePost } from '../../utils/post-API'
+import { useHistory } from 'react-router-dom'
 
 function EditPost() {
+  const history = useHistory()
   const { id } = useParams()
   const [post, setPost] = useState({
     _id: '',
@@ -52,7 +54,7 @@ function EditPost() {
     e.preventDefault()
     const form = new FormData(e.target)
     form.append('_id', post._id)
-    updatePost(form).then((response) => console.log(response))
+    updatePost(form).then((response) => history.push('/user/profile'))
   }
 
   return (
