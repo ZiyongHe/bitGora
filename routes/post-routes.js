@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const mongoose = require('mongoose')
 const { Post } = require('../models')
+const cloudinary = require('cloudinary').v2
 const isAuthenticated = require('../config/middleware/isAuthenticated')
 
 router.get('/', async (req, res) => {
@@ -51,10 +52,26 @@ router.get('/view/:id', isAuthenticated, async (req, res) => {
   }
 })
 
-router.post('/', async (req, res) => {
+router.post('/', isAuthenticated, async (req, res) => {
   try {
-    const newPost = await Post.create(req.body)
-    res.status(201).send({ data: newPost })
+    // console.log(req.body) <-- post text
+    // console.log(req.files) <-- image file
+    const imagePath = req.files.image.path
+    cloudinary.uploader.upload(imagePath, async function (err, result) {
+      if (err) {
+        res.status(500).send({ err: err.message })
+      } else {
+        const image = { publicId: result.public_id, url: result.url }
+        const post = {
+          ...req.body,
+          image,
+          userName: req.user.username,
+          userEmail: req.user.email,
+        }
+        const newPost = await Post.create(post)
+        res.status(201).send({ data: newPost })
+      }
+    })
   } catch (err) {
     res.status(500).send({ err: err.message })
   }
