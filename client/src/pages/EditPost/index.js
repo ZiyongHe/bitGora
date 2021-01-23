@@ -22,6 +22,7 @@ function EditPost() {
     price: 0,
     sold: false,
   })
+  const [imageFile, setImageFile] = useState('')
 
   useEffect(() => {
     viewPost(id).then((result) => {
@@ -31,6 +32,21 @@ function EditPost() {
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  useEffect(() => {
+    if (imageFile) {
+      setPost((prevState) => ({
+        ...prevState,
+        image: {
+          ...prevState.image,
+          // to create an image preview
+          url: URL.createObjectURL(imageFile),
+        },
+      }))
+    }
+    // to free up memory
+    return URL.revokeObjectURL(imageFile)
+  }, [imageFile])
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -66,7 +82,12 @@ function EditPost() {
               />
             </Form.Group>
             <Form.Group controlId="image">
-              <Form.File name="image" label="Image of Product" />
+              <img src={post.image.url} alt={`Original ${post.name}`} />
+              <Form.File
+                name="image"
+                label="Choose new image"
+                onChange={(e) => setImageFile(e.target.files[0])}
+              />
             </Form.Group>
             <Form.Group controlId="description">
               <Form.Label>Description</Form.Label>
