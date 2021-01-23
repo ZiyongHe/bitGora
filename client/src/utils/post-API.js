@@ -15,3 +15,11 @@ export function deletePost(id) {
     method: 'DELETE',
   }).then((response) => response.json())
 }
+
+// Post must be in FormData
+export function createPost(formData) {
+  return fetch('/post', {
+    method: 'POST',
+    body: formData,
+  }).then((response) => response.json())
+}
