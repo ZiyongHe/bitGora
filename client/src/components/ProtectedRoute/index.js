@@ -6,7 +6,7 @@ function ProtectedRoute({ component: Component, exact, path, ...extra }) {
   const [user] = useUser()
   return (
     <Route
-      exact
+      exact={exact}
       path={path}
       render={(props) => {
         if (user.loading) {

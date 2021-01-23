@@ -27,6 +27,7 @@ const app = express()
 // Define middleware here
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
+app.use(require('express-form-data').parse())
 
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === 'production') {
@@ -47,6 +48,7 @@ app.use(flash())
 
 // Define API routes here
 app.use('/user', require('./routes/user-routes.js'))
+app.use('/post', require('./routes/post-routes.js'))
 app.use('/chat', require('./routes/message-routes.js'))
 
 // This is a fall-back for development mode.

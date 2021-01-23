@@ -29,8 +29,10 @@
   },
   "dependencies": {
     "bcrypt": "^5.0.0",
+    "cloudinary": "^1.23.0",
     "connect-flash": "^0.1.1",
     "express": "^4.17.1",
+    "express-form-data": "^2.0.14",
     "express-session": "^1.17.1",
     "if-env": "^1.0.4",
     "mongoose": "^5.11.12",

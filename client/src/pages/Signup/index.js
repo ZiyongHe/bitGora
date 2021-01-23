@@ -24,7 +24,7 @@ function Signup(props) {
       if (response.data) {
         setErr('')
         setUser({ loading: false, ...response.data })
-        props.history.push('/dashboard')
+        props.history.push('/user/dashboard')
       } else {
         setErr(response.err)
       }
