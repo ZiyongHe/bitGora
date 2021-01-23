@@ -2,10 +2,12 @@ import React from 'react'
 
 import './ChatRoom.css'
 import useChat from '../../utils/WebSocketio/useChat'
+import { useUser } from '../../utils/UserContext'
 
-const ChatRoom = (props) => {
-  const { roomId } = props.match.params // Gets roomId from URL
-  const { messages, sendMessage } = useChat(roomId) // Creates a websocket and manages messaging
+const ChatRoom = ({ roomNumber }) => {
+  const [user] = useUser()
+  const roomId = roomNumber // Gets roomId from URL
+  const { messages, sendMessage } = useChat(roomId, user.username) // Creates a websocket and manages messaging
   const [newMessage, setNewMessage] = React.useState('') // Message to be sent
 
   const handleNewMessageChange = (event) => {
@@ -19,7 +21,9 @@ const ChatRoom = (props) => {
 
   return (
     <div className="chat-room-container">
-      <h1 className="room-name">Room: {roomId}</h1>
+      <h1 className="room-name">
+        {roomId ? 'In room: ' + roomId : 'Not in chatroom'}
+      </h1>
       <div className="messages-container">
         <ol className="messages-list">
           {messages.map((message, i) => (

@@ -21,6 +21,7 @@ function MainNav() {
     <>
       <Navbar.Toggle aria-controls="main-nav" />
       <Navbar.Collapse id="main-nav">
+        <span>Welcome {user.username}</span>
         <Nav>
           <Link to="/user/profile" className="nav-link">
             Profile

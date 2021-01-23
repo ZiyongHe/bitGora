@@ -36,6 +36,7 @@
     "express-session": "^1.17.1",
     "if-env": "^1.0.4",
     "mongoose": "^5.11.12",
+    "mongoose-timestamp": "^0.6.0",
     "node-pre-gyp": "^0.17.0",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",

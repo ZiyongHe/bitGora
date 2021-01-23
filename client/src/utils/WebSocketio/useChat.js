@@ -1,26 +1,26 @@
-import {useEffect, useRef, useState} from 'react'
+import { useEffect, useRef, useState } from 'react'
 import socketIOClient from 'socket.io-client'
 
 const NEW_CHAT_MESSAGE_EVENT = 'newChatMessage' // Name of the event
 const SOCKET_SERVER_URL = 'http://localhost:3001'
 
-const useChat = roomId => {
+const useChat = (roomId, username) => {
   const [messages, setMessages] = useState([]) // Sent and received messages
   const socketRef = useRef()
 
   useEffect(() => {
     // Creates a WebSocket connection
     socketRef.current = socketIOClient(SOCKET_SERVER_URL, {
-      query: {roomId}
+      query: { roomId },
     })
 
     // Listens for incoming messages
-    socketRef.current.on(NEW_CHAT_MESSAGE_EVENT, message => {
+    socketRef.current.on(NEW_CHAT_MESSAGE_EVENT, (message) => {
       const incomingMessage = {
         ...message,
-        ownedByCurrentUser: message.senderId === socketRef.current.id
+        ownedByCurrentUser: message.senderId === socketRef.current.id,
       }
-      setMessages(messages => [...messages, incomingMessage])
+      setMessages((messages) => [...messages, incomingMessage])
     })
 
     // Destroys the socket reference
@@ -32,14 +32,16 @@ const useChat = roomId => {
 
   // Sends a message to the server that
   // forwards it to all users in the same room
-  const sendMessage = messageBody => {
+  const sendMessage = (messageBody) => {
     socketRef.current.emit(NEW_CHAT_MESSAGE_EVENT, {
       body: messageBody,
-      senderId: socketRef.current.id
+      username: username,
+      senderId: socketRef.current.id,
     })
   }
+  console.log(messages[0] ? messages[0]._id : '')
 
-  return {messages, sendMessage}
+  return { messages, sendMessage }
 }
 
 export default useChat
