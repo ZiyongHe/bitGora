@@ -8,10 +8,11 @@ import { useParams } from 'react-router-dom'
 import { updatePost } from '../../utils/post-API'
 import { useHistory } from 'react-router-dom'
 import { usePost } from '../../utils/PostContext'
+import { UPDATE_OWNED_POST } from '../../utils/PostContext/actions.js'
 
 function EditPost() {
   const history = useHistory()
-  const { posts, handleDelete } = usePost()
+  const { posts, dispatch, handleDelete } = usePost()
   const { id } = useParams()
   const [post, setPost] = useState({
     _id: '',
@@ -53,7 +54,10 @@ function EditPost() {
     e.preventDefault()
     const form = new FormData(e.target)
     form.append('_id', post._id)
-    updatePost(form).then((response) => history.push('/user/profile'))
+    updatePost(form).then((response) => {
+      dispatch({ type: UPDATE_OWNED_POST, newPost: response.data })
+      history.push('/user/profile')
+    })
   }
 
   return (
