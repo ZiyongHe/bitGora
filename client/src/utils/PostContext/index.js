@@ -1,11 +1,13 @@
-import React, { useReducer, createContext, useContext } from 'react'
+import React, { useReducer, createContext, useContext, useEffect } from 'react'
 import {
   SET_UNOWNED_POSTS,
   SET_OWNED_POSTS,
+  ADD_OWNED_POST,
+  UPDATE_OWNED_POST,
   DELETE_OWNED_POST,
   SET_ERR,
 } from './actions.js'
-import { deletePost } from '../post-API.js'
+import { deletePost, getUnownedPosts, getOwnedPosts } from '../post-API.js'
 
 const PostContext = createContext()
 
@@ -15,6 +17,24 @@ function reducer(state, action) {
       return { ...state, err: '', unownedPosts: action.unownedPosts }
     case SET_OWNED_POSTS:
       return { ...state, err: '', ownedPosts: action.ownedPosts }
+    case ADD_OWNED_POST:
+      return {
+        ...state,
+        err: '',
+        ownedPosts: [...state.ownedPosts, action.newPost],
+      }
+    case UPDATE_OWNED_POST:
+      return {
+        ...state,
+        err: '',
+        ownedPosts: state.ownedPosts.map((post) => {
+          if (post._id === action.newPost._id) {
+            return action.newPost
+          } else {
+            return post
+          }
+        }),
+      }
     case DELETE_OWNED_POST:
       return {
         ...state,
@@ -36,6 +56,23 @@ export function PostProvider(props) {
     ownedPosts: [],
     err: '',
   })
+
+  useEffect(() => {
+    // Loads the posts when the user logs in
+    Promise.all([getUnownedPosts(), getOwnedPosts()]).then((result) => {
+      const [unownedPosts, ownedPosts] = result
+      if (unownedPosts.err || ownedPosts.err) {
+        console.log(unownedPosts.err)
+        dispatch({ type: SET_ERR, err: result.err })
+      } else {
+        dispatch({
+          type: SET_UNOWNED_POSTS,
+          unownedPosts: unownedPosts.data,
+        })
+        dispatch({ type: SET_OWNED_POSTS, ownedPosts: ownedPosts.data })
+      }
+    })
+  }, [])
 
   const handleDelete = (id, callback) => {
     deletePost(id)

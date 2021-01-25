@@ -10,7 +10,7 @@ const http = require('http')
 mongoose
   .connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/bitgora', {
     useNewUrlParser: true,
-    useFindAndModify: true,
+    useFindAndModify: false,
     useCreateIndex: true,
     useUnifiedTopology: true,
   })
