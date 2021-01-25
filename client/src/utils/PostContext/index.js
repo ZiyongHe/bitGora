@@ -1,11 +1,11 @@
-import React, { useReducer, createContext, useContext } from 'react'
+import React, { useReducer, createContext, useContext, useEffect } from 'react'
 import {
   SET_UNOWNED_POSTS,
   SET_OWNED_POSTS,
   DELETE_OWNED_POST,
   SET_ERR,
 } from './actions.js'
-import { deletePost } from '../post-API.js'
+import { deletePost, getUnownedPosts } from '../post-API.js'
 
 const PostContext = createContext()
 
@@ -36,6 +36,26 @@ export function PostProvider(props) {
     ownedPosts: [],
     err: '',
   })
+
+  useEffect(() => {
+    getUnownedPosts()
+      .then((result) => {
+        if (result.err) {
+          dispatch({ type: SET_ERR, err: result.err })
+        } else {
+          dispatch({
+            type: SET_UNOWNED_POSTS,
+            unownedPosts: result.data,
+          })
+        }
+      })
+      .catch(() => {
+        dispatch({
+          type: SET_ERR,
+          err: 'Something went wrong. Unable to load new posts at this time.',
+        })
+      })
+  }, [])
 
   const handleDelete = (id, callback) => {
     deletePost(id)
