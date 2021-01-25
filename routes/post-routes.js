@@ -111,25 +111,24 @@ router.patch('/', isAuthenticated, async (req, res) => {
             }
 
             // make update
-            Post.updateOne(
-              { _id: mongoose.Types.ObjectId(postChanges._id) },
+            const newPost = await Post.findByIdAndUpdate(
+              postChanges._id,
               postChanges,
-              (_, result) => {
-                res.status(200).send({ data: result })
-              }
+              { new: true }
             )
+            res.status(200).send({ data: newPost })
           })
         }
       )
     } else {
       // if no new image, just use the body
-      Post.updateOne(
-        { _id: mongoose.Types.ObjectId(postChanges._id) },
+      // make update
+      const newPost = await Post.findByIdAndUpdate(
+        postChanges._id,
         postChanges,
-        (_, result) => {
-          res.status(200).send({ data: result })
-        }
+        { new: true }
       )
+      res.status(200).send({ data: newPost })
     }
   } catch (err) {
     res.status(500).send({ err: err.message })
