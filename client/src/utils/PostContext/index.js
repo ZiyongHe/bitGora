@@ -2,6 +2,7 @@ import React, { useReducer, createContext, useContext, useEffect } from 'react'
 import {
   SET_UNOWNED_POSTS,
   SET_OWNED_POSTS,
+  ADD_OWNED_POST,
   DELETE_OWNED_POST,
   SET_ERR,
 } from './actions.js'
@@ -15,6 +16,12 @@ function reducer(state, action) {
       return { ...state, err: '', unownedPosts: action.unownedPosts }
     case SET_OWNED_POSTS:
       return { ...state, err: '', ownedPosts: action.ownedPosts }
+    case ADD_OWNED_POST:
+      return {
+        ...state,
+        err: '',
+        ownedPosts: [...state.ownedPosts, action.newPost],
+      }
     case DELETE_OWNED_POST:
       return {
         ...state,
@@ -38,6 +45,7 @@ export function PostProvider(props) {
   })
 
   useEffect(() => {
+    // Loads the posts when the user logs in
     Promise.all([getUnownedPosts(), getOwnedPosts()]).then((result) => {
       const [unownedPosts, ownedPosts] = result
       if (unownedPosts.err || ownedPosts.err) {
