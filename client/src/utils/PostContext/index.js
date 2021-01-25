@@ -3,6 +3,7 @@ import {
   SET_UNOWNED_POSTS,
   SET_OWNED_POSTS,
   ADD_OWNED_POST,
+  UPDATE_OWNED_POST,
   DELETE_OWNED_POST,
   SET_ERR,
 } from './actions.js'
@@ -21,6 +22,18 @@ function reducer(state, action) {
         ...state,
         err: '',
         ownedPosts: [...state.ownedPosts, action.newPost],
+      }
+    case UPDATE_OWNED_POST:
+      return {
+        ...state,
+        err: '',
+        ownedPosts: state.ownedPosts.map((post) => {
+          if (post._id === action.newPost._id) {
+            return action.newPost
+          } else {
+            return post
+          }
+        }),
       }
     case DELETE_OWNED_POST:
       return {
