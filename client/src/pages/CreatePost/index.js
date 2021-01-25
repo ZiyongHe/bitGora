@@ -6,13 +6,25 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import { createPost } from '../../utils/post-API'
 import { useHistory } from 'react-router-dom'
+import { ADD_OWNED_POST, SET_ERR } from '../../utils/PostContext/actions.js'
+import { usePost } from '../../utils/PostContext'
 
 function CreatePost() {
   const history = useHistory()
+  // eslint-disable-next-line no-unused-vars
+  const { dispatch } = usePost()
+
   const handleSubmit = (e) => {
     e.preventDefault()
     const formData = new FormData(e.target)
-    createPost(formData).then((response) => history.push('/user/profile'))
+    createPost(formData).then((response) => {
+      if (response.err) {
+        dispatch({ type: SET_ERR, err: response.err })
+      } else {
+        dispatch({ type: ADD_OWNED_POST, newPost: response.data })
+        history.push('/user/profile')
+      }
+    })
   }
 
   return (
