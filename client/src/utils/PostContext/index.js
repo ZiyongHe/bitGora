@@ -5,7 +5,7 @@ import {
   DELETE_OWNED_POST,
   SET_ERR,
 } from './actions.js'
-import { deletePost, getUnownedPosts } from '../post-API.js'
+import { deletePost, getUnownedPosts, getOwnedPosts } from '../post-API.js'
 
 const PostContext = createContext()
 
@@ -38,23 +38,19 @@ export function PostProvider(props) {
   })
 
   useEffect(() => {
-    getUnownedPosts()
-      .then((result) => {
-        if (result.err) {
-          dispatch({ type: SET_ERR, err: result.err })
-        } else {
-          dispatch({
-            type: SET_UNOWNED_POSTS,
-            unownedPosts: result.data,
-          })
-        }
-      })
-      .catch(() => {
+    Promise.all([getUnownedPosts(), getOwnedPosts()]).then((result) => {
+      const [unownedPosts, ownedPosts] = result
+      if (unownedPosts.err || ownedPosts.err) {
+        console.log(unownedPosts.err)
+        dispatch({ type: SET_ERR, err: result.err })
+      } else {
         dispatch({
-          type: SET_ERR,
-          err: 'Something went wrong. Unable to load new posts at this time.',
+          type: SET_UNOWNED_POSTS,
+          unownedPosts: unownedPosts.data,
         })
-      })
+        dispatch({ type: SET_OWNED_POSTS, ownedPosts: ownedPosts.data })
+      }
+    })
   }, [])
 
   const handleDelete = (id, callback) => {
