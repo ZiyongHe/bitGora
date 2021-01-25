@@ -5,13 +5,13 @@ import Col from 'react-bootstrap/Col'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import { useParams } from 'react-router-dom'
-import { viewPost, updatePost } from '../../utils/post-API'
+import { updatePost } from '../../utils/post-API'
 import { useHistory } from 'react-router-dom'
 import { usePost } from '../../utils/PostContext'
 
 function EditPost() {
   const history = useHistory()
-  const { handleDelete } = usePost()
+  const { posts, handleDelete } = usePost()
   const { id } = useParams()
   const [post, setPost] = useState({
     _id: '',
@@ -29,11 +29,8 @@ function EditPost() {
   const [imageFile, setImageFile] = useState('')
 
   useEffect(() => {
-    viewPost(id).then((result) => {
-      if (result.data) {
-        setPost(result.data.postData)
-      }
-    })
+    const selectedPost = posts.ownedPosts.find((post) => post._id === id)
+    setPost(selectedPost)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
