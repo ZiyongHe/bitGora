@@ -9,6 +9,7 @@ import { useUser } from '../../utils/UserContext'
 import { login } from '../../utils/user-API'
 import { Link } from 'react-router-dom'
 import { ReactComponent as Logo } from '../../img/bitgora-wordmark.svg'
+import './style.css'
 
 function Login(props) {
   // eslint-disable-next-line no-unused-vars
@@ -32,10 +33,19 @@ function Login(props) {
   }
 
   return (
-    <div className="blue-bg p-3">
-      <Container>
-        <Row className="justify-content-center">
-          <Col xs={12} lg={6} className="white-bg mt-5 p-5 rounded">
+    <div className="blue-bg p-3 p-md-0">
+      <Container fluid className="h-100 p-md-0">
+        <Row
+          id="login-row"
+          className="justify-content-center justify-content-sm-start"
+        >
+          <Col
+            id="login-col"
+            xs={12}
+            md={6}
+            lg={5}
+            className="white-bg mt-5 mt-md-0"
+          >
             <Row className="justify-content-center mb-5">
               <Col xs={6}>
                 <Logo />
