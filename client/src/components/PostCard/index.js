@@ -15,7 +15,6 @@ function PostCard({ post, editable }) {
     newChatRoom(id, username).then((res) => {
       console.log(res._id)
       return history.push(`/user/chat/room/${res._id}`)
-      // <Redirect to={`/user/chat/room/${res._id}`} />
     })
   }
 

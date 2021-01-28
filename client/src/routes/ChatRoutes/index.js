@@ -3,7 +3,6 @@ import { Switch } from 'react-router-dom'
 import ProtectedRoute from '../../components/ProtectedRoute'
 import ChatRoomList from '../../pages/ChatRoomList'
 import ChatRoom from '../../pages/ChatRoom'
-import EditPost from '../../pages/EditPost'
 
 function ChatRoutes({ match }) {
   return (
@@ -13,11 +12,7 @@ function ChatRoutes({ match }) {
         path={`${match.path}/list`}
         component={ChatRoomList}
       />
-      <ProtectedRoute
-        exact
-        path={`${match.path}/room/:id`}
-        component={ChatRoom}
-      />
+      <ProtectedRoute path={`${match.path}/room/`} component={ChatRoom} />
     </Switch>
   )
 }
