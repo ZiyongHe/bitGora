@@ -4,6 +4,9 @@ import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import { useUser } from '../../utils/UserContext'
 import { logout } from '../../utils/user-API'
+import { ReactComponent as Logo } from '../../img/bitgora-logo.svg'
+
+import './style.css'
 
 function MainNav() {
   const [user, setUser] = useUser()
@@ -36,10 +39,10 @@ function MainNav() {
   )
 
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar expand="lg" id="main-nav">
       <Navbar.Brand>
         <Link to={!user.loading && user.username ? '/user/dashboard' : '/'}>
-          BitGora
+          <Logo height="40" />
         </Link>
       </Navbar.Brand>
       {!user.loading && user.username ? userMenu : <></>}
