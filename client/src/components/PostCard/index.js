@@ -11,7 +11,6 @@ function PostCard({ post, editable }) {
   const [user] = useUser()
 
   const handleMessageBtn = (id, username) => {
-    console.log(id, username)
     newChatRoom(id, username).then((res) => {
       console.log(res)
       return <Redirect to={`/user/chat/room/${res._id}`} />

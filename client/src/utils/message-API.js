@@ -1,7 +1,7 @@
 export function newChatRoom(postId, username) {
   return fetch('/chat', {
     method: 'POST',
-    header: {
+    headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ postId: postId, username: username }),
