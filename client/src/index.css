@@ -1,3 +1,4 @@
+/* General body styles */
 html,
 body,
 #root {
@@ -8,4 +9,21 @@ body,
 #root {
   display: flex;
   flex-direction: column;
+}
+
+/* Background classes */
+.blue-bg {
+  flex-grow: 1;
+  background-color: #06aed5;
+}
+
+.white-bg {
+  background-color: white;
+}
+
+/* Styling on top of bootstrap buttons */
+.btn-warning {
+  background-color: #f0c808;
+  border: none;
+  color: black;
 }
