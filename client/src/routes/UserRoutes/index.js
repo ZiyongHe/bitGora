@@ -5,6 +5,7 @@ import ProtectedRoute from '../../components/ProtectedRoute'
 import Dashboard from '../../pages/Dashboard'
 import Profile from '../../pages/Profile'
 import PostRoutes from '../PostRoutes'
+import ChatRoutes from '../ChatRoutes'
 
 function UserRoutes({ match }) {
   // When defining child routes,
@@ -28,6 +29,7 @@ function UserRoutes({ match }) {
         <ProtectedRoute path={`${match.path}/post`} component={PostRoutes} />
 
         {/* Route for chat routes */}
+        <ProtectedRoute path={`${match.path}/chat`} component={ChatRoutes} />
       </Switch>
     </PostProvider>
   )

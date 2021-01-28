@@ -21,8 +21,10 @@ router.get('/list/:username', (req, res) => {
 // *************creating new chatroom******************
 router.post('/', (req, res) => {
   // user1 is seller, user2 is inquirier
-  Post.findOne({ _id: req.body.postId }).then((docs) => {
-    const user1 = docs.username
+  console.log(req.body._id)
+  Post.findById(req.body.postId).then((docs) => {
+    console.log(docs)
+    const user1 = docs.userName
     const user2 = req.body.username
     const chatroom = { members: [user1, user2], messages: [] }
 

@@ -1,11 +1,23 @@
 import React from 'react'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { usePost } from '../../utils/PostContext'
+import { newChatRoom } from '../../utils/message-API'
+import { useUser } from '../../utils/UserContext'
 
 function PostCard({ post, editable }) {
   const { handleDelete } = usePost()
+  const [user] = useUser()
+
+  const handleMessageBtn = (id, username) => {
+    console.log(id, username)
+    newChatRoom(id, username).then((res) => {
+      console.log(res)
+      return <Redirect to={`/user/chat/room/${res._id}`} />
+    })
+  }
+
   const editableLinks = (
     <div className="d-flex">
       <Link
@@ -25,9 +37,12 @@ function PostCard({ post, editable }) {
   )
 
   const messageSeller = (
-    <Card.Link href="#" className="btn btn-primary w-100">
+    <Button
+      onClick={() => handleMessageBtn(post._id, user.username)}
+      className="btn btn-primary w-100"
+    >
       Message Seller
-    </Card.Link>
+    </Button>
   )
 
   return (

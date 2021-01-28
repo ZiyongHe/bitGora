@@ -1,6 +1,6 @@
 import React from 'react'
 
-import './ChatRoom.css'
+import './index.css'
 import useChat from '../../utils/WebSocketio/useChat'
 import { useUser } from '../../utils/UserContext'
 
@@ -21,9 +21,6 @@ const ChatRoom = ({ roomNumber }) => {
 
   return (
     <div className="chat-room-container">
-      <h1 className="room-name">
-        {roomId ? 'In room: ' + roomId : 'Not in chatroom'}
-      </h1>
       <div className="messages-container">
         <ol className="messages-list">
           {messages.map((message, i) => (
