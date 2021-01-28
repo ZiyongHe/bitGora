@@ -1,7 +1,7 @@
 import React from 'react'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
-import { Link, Redirect } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { usePost } from '../../utils/PostContext'
 import { newChatRoom } from '../../utils/message-API'
 import { useUser } from '../../utils/UserContext'
@@ -9,11 +9,13 @@ import { useUser } from '../../utils/UserContext'
 function PostCard({ post, editable }) {
   const { handleDelete } = usePost()
   const [user] = useUser()
+  let history = useHistory()
 
   const handleMessageBtn = (id, username) => {
     newChatRoom(id, username).then((res) => {
-      console.log(res)
-      return <Redirect to={`/user/chat/room/${res._id}`} />
+      console.log(res._id)
+      return history.push(`/user/chat/room/${res._id}`)
+      // <Redirect to={`/user/chat/room/${res._id}`} />
     })
   }
 
