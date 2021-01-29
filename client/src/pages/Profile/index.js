@@ -9,10 +9,10 @@ function Profile() {
   const { posts } = usePost()
 
   return (
-    <Container>
+    <Container className="mt-4">
       <Row>
         <Col>
-          <h1>Profile</h1>
+          <h1 className="mb-3">Profile</h1>
         </Col>
       </Row>
       <Row>

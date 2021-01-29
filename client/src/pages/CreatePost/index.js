@@ -28,10 +28,10 @@ function CreatePost() {
   }
 
   return (
-    <Container>
+    <Container className="mt-4">
       <Row>
         <Col>
-          <h1>Create a post</h1>
+          <h1 className="mb-3">Create a post</h1>
         </Col>
       </Row>
       <Row>

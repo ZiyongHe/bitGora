@@ -9,10 +9,10 @@ function Dashboard() {
   const { posts } = usePost()
 
   return (
-    <Container>
+    <Container className="mt-4">
       <Row>
         <Col>
-          <h1>Dashboard</h1>
+          <h1 className="mb-3">Dashboard</h1>
         </Col>
       </Row>
       <Row>

@@ -61,10 +61,10 @@ function EditPost() {
   }
 
   return (
-    <Container>
+    <Container className="mt-4">
       <Row>
         <Col>
-          <h1>Edit a post</h1>
+          <h1 className="mb-3">Edit a post</h1>
         </Col>
       </Row>
       <Row>
