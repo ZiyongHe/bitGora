@@ -1,3 +1,9 @@
+@font-face {
+  font-family: 'Signika';
+  src: local('Signika'),
+    url(./fonts/Signika-VariableFont_wght.ttf) format('ttf');
+}
+
 /* General body styles */
 html,
 body,
@@ -57,4 +63,18 @@ body,
   background-color: #5d0a14;
   border: none;
   box-shadow: 0 0 0 0.2rem rgb(136 8 25 / 50%);
+}
+
+/* General text styles*/
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4,
+h5,
+.h5 {
+  font-family: 'Signika', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
