@@ -1,0 +1,16 @@
+#signup-col {
+  border-radius: 0.25rem;
+  padding: 3rem;
+}
+
+@media (min-width: 768px) {
+  #signup-row {
+    margin: 0;
+    height: 100%;
+  }
+
+  #signup-col {
+    border-radius: 0;
+    padding: 5rem;
+  }
+}
