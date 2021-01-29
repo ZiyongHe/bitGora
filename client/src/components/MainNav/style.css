@@ -2,3 +2,18 @@
   background-color: white;
   border-bottom: 4px solid #086788;
 }
+
+#menu span {
+  color: #212529;
+}
+
+#menu .nav-link {
+  color: #8e8e8e;
+  transition: color 0.2s;
+}
+
+#menu .nav-link:hover,
+#menu .nav-link:active,
+#menu .nav-link:focus {
+  color: #086788;
+}

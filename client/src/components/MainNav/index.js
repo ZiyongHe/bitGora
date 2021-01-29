@@ -24,16 +24,23 @@ function MainNav() {
     <>
       <Navbar.Toggle aria-controls="menu" />
       <Navbar.Collapse id="menu">
-        <span>Welcome {user.username}</span>
-        <Nav>
-          <Link to="/user/profile" className="nav-link">
-            Profile
-          </Link>
-          <Link to="/user/post/create" className="nav-link">
-            Create Post
-          </Link>
-          <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
-        </Nav>
+        <div className="d-lg-flex justify-content-between w-100">
+          <Navbar.Text>
+            Welcome <span className="font-weight-bolder">{user.username}</span>!
+          </Navbar.Text>
+          <Nav>
+            <Link to="/user/dashboard" className="nav-link">
+              Dashboard
+            </Link>
+            <Link to="/user/profile" className="nav-link">
+              Your Posts
+            </Link>
+            <Link to="/user/post/create" className="nav-link">
+              Create Post
+            </Link>
+            <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
+          </Nav>
+        </div>
       </Navbar.Collapse>
     </>
   )
