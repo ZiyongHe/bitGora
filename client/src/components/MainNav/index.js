@@ -22,8 +22,8 @@ function MainNav() {
 
   const userMenu = (
     <>
-      <Navbar.Toggle aria-controls="main-nav" />
-      <Navbar.Collapse id="main-nav">
+      <Navbar.Toggle aria-controls="menu" />
+      <Navbar.Collapse id="menu">
         <span>Welcome {user.username}</span>
         <Nav>
           <Link to="/user/profile" className="nav-link">
