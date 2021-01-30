@@ -5,7 +5,11 @@ import { getChatRoom } from '../message-API'
 
 const ChatContext = React.createContext()
 
-const SOCKET_SERVER_URL = 'http://localhost:3001'
+const SOCKET_SERVER_URL =
+  process.env.NODE_ENV === 'production'
+    ? 'https://bitgora.herokuapp.com/'
+    : 'http://localhost:3001'
+
 const SUBSCRIBE = 'subscribe'
 const NEW_CHAT_MESSAGE_EVENT = 'newChatMessage' // Name of the event
 
