@@ -87,9 +87,10 @@ function EditPost() {
             </Form.Group>
             <Form.Group controlId="image">
               <img
+                className="border rounded mt-3"
                 src={post.image.url}
                 alt={`Original ${post.name}`}
-                width="100%"
+                width="75%"
                 height="auto"
               />
               <Form.File
