@@ -59,6 +59,7 @@ function CreatePost() {
                 name="image"
                 label="Image of Product"
                 onChange={(e) => setImageFile(e.target.files[0])}
+                accept="image/*"
               />
               {imageURL ? (
                 <img

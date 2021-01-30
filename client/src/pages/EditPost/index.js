@@ -91,6 +91,7 @@ function EditPost() {
                 alt={`Original ${post.name}`}
                 width="100%"
                 height="auto"
+                accept="image/*"
               />
               <Form.File
                 name="image"
