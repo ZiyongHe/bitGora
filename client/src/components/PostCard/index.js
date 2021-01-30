@@ -13,7 +13,6 @@ function PostCard({ post, editable }) {
 
   const handleMessageBtn = (id, username) => {
     newChatRoom(id, username).then((res) => {
-      console.log(res._id)
       return history.push(`/user/chat/room/${res._id}`)
     })
   }

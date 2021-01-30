@@ -12,7 +12,11 @@ function ChatRoutes({ match }) {
         path={`${match.path}/list`}
         component={ChatRoomList}
       />
-      <ProtectedRoute path={`${match.path}/room/`} component={ChatRoom} />
+      <ProtectedRoute
+        exact
+        path={`${match.path}/room/:id`}
+        component={ChatRoom}
+      />
     </Switch>
   )
 }

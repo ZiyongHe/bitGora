@@ -1,12 +1,18 @@
 const router = require('express').Router()
 const { ChatRoom, Post, User } = require('../models')
+const mongoose = require('mongoose')
 
 // *************get messages of chatroom***************
 router.get('/messages/:roomId', (req, res) => {
   const RoomId = req.params.roomId
-  ChatRoom.findOne({ _id: RoomId })
+  console.log(RoomId)
+  console.log('logging doc...')
+  ChatRoom.findOne({ _id: mongoose.Types.ObjectId(RoomId) })
     .populate('messages')
-    .then((doc) => res.json(doc))
+    .then((doc) => {
+      console.log(doc)
+      res.json(doc)
+    })
 })
 
 // ****************get user's chatroom list*******************
@@ -22,7 +28,7 @@ router.get('/list/:username', (req, res) => {
 // *************creating new chatroom******************
 router.post('/', (req, res) => {
   // user1 is seller, user2 is inquirier
-  console.log(req.body._id)
+  console.log(req.body.postId)
   Post.findById(req.body.postId).then(async (docs) => {
     const user1 = docs.userName
     const user2 = req.body.username
@@ -30,7 +36,7 @@ router.post('/', (req, res) => {
 
     // check if inquirier already has a room with the seller
     const roomExist = await ChatRoom.findOne({ members: [user1, user2] })
-
+    console.log(roomExist)
     if (roomExist) {
       console.log('Pulling out the room record...')
       return res.json(roomExist)

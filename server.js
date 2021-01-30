@@ -69,24 +69,37 @@ const io = require('socket.io')(httpServer, {
 })
 
 const Message = require('./models/Message')
+const { ChatRoom } = require('./models')
 const NEW_CHAT_MESSAGE_EVENT = 'newChatMessage'
+const SUBSCRIBE = 'subscribe'
 io.on('connection', (socket) => {
   // Join a conversation
-  const { roomId } = socket.handshake.query
-  socket.join(roomId)
+  // const { roomId } = socket.handshake.query
+  socket.on(SUBSCRIBE, (room) => {
+    socket.join(room)
+    console.log(`User joined ${room}`)
+  })
 
   // Listen for new messages
   socket.on(NEW_CHAT_MESSAGE_EVENT, async (data) => {
     // Save to database
-    const newMessage = new Message({ username: data.username, body: data.body })
+    const newMessage = new Message({
+      username: data.username,
+      body: data.body,
+      // might need to convert to objectId
+      roomId: data.roomId,
+    })
     await newMessage.save()
+    const chatRoom = await ChatRoom.findById(data.roomId)
+    chatRoom.messages.push(newMessage._id)
+    await chatRoom.save()
     // Broadcast back to all connected clients
-    io.in(roomId).emit(NEW_CHAT_MESSAGE_EVENT, newMessage.toJSON())
+    io.in(data.roomId).emit(NEW_CHAT_MESSAGE_EVENT, newMessage.toJSON())
   })
 
   // Leave the room if the user closes the socket
   socket.on('disconnect', () => {
-    socket.leave(roomId)
+    // socket.leave(roomId)
   })
 })
 

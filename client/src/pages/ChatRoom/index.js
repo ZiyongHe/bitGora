@@ -1,21 +1,33 @@
-import React from 'react'
-
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import './index.css'
-import useChat from '../../utils/WebSocketio/useChat'
+// import useChat from '../../utils/WebSocketio/useChat'
 import { useUser } from '../../utils/UserContext'
+import { useChat } from '../../utils/ChatContext'
+import { getMessage } from '../../utils/message-API'
 
-const ChatRoom = ({ roomNumber }) => {
+const ChatRoom = () => {
+  // TODO:
+  // use the activeRoom state from useChat
   const [user] = useUser()
-  const roomId = roomNumber // Gets roomId from URL
-  const { messages, sendMessage } = useChat(roomId, user.username) // Creates a websocket and manages messaging
-  const [newMessage, setNewMessage] = React.useState('') // Message to be sent
+  const { id } = useParams()
+  const { activeRoom, setActiveRoom, chats, sendMessage } = useChat()
+  // const { messages, sendMessage } = useChat(id, user.username) // Creates a websocket and manages messaging
+  const [newMessage, setNewMessage] = useState('') // Message to be sent
+
+  useEffect(() => {
+    // TODO: set to activeRoom state
+    getMessage(id).then((res) => {
+      setActiveRoom(res)
+    })
+  }, [id])
 
   const handleNewMessageChange = (event) => {
     setNewMessage(event.target.value)
   }
 
   const handleSendMessage = () => {
-    sendMessage(newMessage)
+    sendMessage(newMessage, id)
     setNewMessage('')
   }
 
@@ -23,16 +35,20 @@ const ChatRoom = ({ roomNumber }) => {
     <div className="chat-room-container">
       <div className="messages-container">
         <ol className="messages-list">
-          {messages.map((message, i) => (
-            <li
-              key={i}
-              className={`message-item ${
-                message.ownedByCurrentUser ? 'my-message' : 'received-message'
-              }`}
-            >
-              {message.body}
-            </li>
-          ))}
+          {activeRoom
+            ? activeRoom.messages.map((message, i) => (
+                <li
+                  key={i}
+                  className={`message-item ${
+                    message.ownedByCurrentUser
+                      ? 'my-message'
+                      : 'received-message'
+                  }`}
+                >
+                  {message.body}
+                </li>
+              ))
+            : null}
         </ol>
       </div>
       <textarea
