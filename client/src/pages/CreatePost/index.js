@@ -65,7 +65,7 @@ function CreatePost() {
                 <img
                   className="border rounded mt-3"
                   src={imageURL}
-                  alt={'Product'}
+                  alt="Product"
                   width="75%"
                   height="auto"
                 />
