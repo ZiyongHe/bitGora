@@ -82,17 +82,19 @@ io.on('connection', (socket) => {
 
   // Listen for new messages
   socket.on(NEW_CHAT_MESSAGE_EVENT, async (data) => {
+    console.log('New message received by server')
     // Save to database
     const newMessage = new Message({
       username: data.username,
       body: data.body,
-      // might need to convert to objectId
       roomId: data.roomId,
     })
     await newMessage.save()
+    console.log('Saved to message database')
     const chatRoom = await ChatRoom.findById(data.roomId)
     chatRoom.messages.push(newMessage._id)
     await chatRoom.save()
+    console.log('Saved to Chatroom database')
     // Broadcast back to all connected clients
     io.in(data.roomId).emit(NEW_CHAT_MESSAGE_EVENT, newMessage.toJSON())
   })

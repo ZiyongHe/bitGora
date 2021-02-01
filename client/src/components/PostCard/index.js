@@ -17,7 +17,7 @@ function PostCard({ post, editable }) {
     newChatRoom(id, username).then((res) => {
       setChats((prevState) => [...prevState, res])
       history.push(`/user/chat/room/${res._id}`)
-      return window.location.reload(true)
+      return window.location.reload()
     })
   }
 

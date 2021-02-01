@@ -32,7 +32,6 @@ export function ChatProvider(props) {
 
   useEffect(() => {
     activeRoomId.current = activeRoom._id
-    console.log(activeRoomId)
   }, [activeRoom])
 
   useEffect(() => {
@@ -77,6 +76,9 @@ export function ChatProvider(props) {
       socketRef.current.disconnect()
     }
   }, [activeRoomId])
+  // setup socket connection and listener for each room of the user
+  // current active room state will update on room change
+  //
 
   const sendMessage = (messageBody, roomId) => {
     socketRef.current.emit(NEW_CHAT_MESSAGE_EVENT, {
@@ -85,6 +87,8 @@ export function ChatProvider(props) {
       username: user.username,
       senderId: socketRef.current.id,
     })
+    // temporary fix for the bug of undefined chat context state error when sending second message in a room
+    window.location.reload()
   }
 
   return (

@@ -2,14 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import './index.css'
 // import useChat from '../../utils/WebSocketio/useChat'
-import { useUser } from '../../utils/UserContext'
 import { useChat } from '../../utils/ChatContext'
 import { getMessage } from '../../utils/message-API'
 
 const ChatRoom = () => {
   // TODO:
   // use the activeRoom state from useChat
-  const [user] = useUser()
   const { id } = useParams()
   const { sendMessage, activeRoom, setActiveRoom } = useChat()
   // const { messages, sendMessage } = useChat(id, user.username) // Creates a websocket and manages messaging
