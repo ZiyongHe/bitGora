@@ -32,9 +32,13 @@ export function ChatProvider(props) {
 
   useEffect(() => {
     activeRoomId.current = activeRoom._id
+    console.log(activeRoomId)
   }, [activeRoom])
 
   useEffect(() => {
+    // get chat room list with user name
+    // for new created room, (create room id takes longer to be available) id is not in the database yet, so it's not listened by the socket.io
+    // resolved: window.reload() after create a chat room. PostCard index line 20
     getChatRoom(user.username).then((res) => {
       setChats(res)
 
@@ -45,18 +49,21 @@ export function ChatProvider(props) {
         socketRef.current.emit(SUBSCRIBE, room._id)
       })
 
-      // Listens for incoming messages
+      // Listens for incoming messages (add to FRONT END context provider)
       socketRef.current.on(NEW_CHAT_MESSAGE_EVENT, (message) => {
         // find the right chatroom object
         // save the message to it
-        setChats((prevState) =>
+        setChats((prevState) => {
+          console.log(prevState)
           prevState.map((room) => {
+            // append the new message to its room in chatsContext chats state
             if (room._id === message.roomId) {
               room.messages.push(message._id)
             }
             return room
           })
-        )
+        })
+        // if the new message is for the current active room, append to activeRoom state too
         if (message.roomId === activeRoomId.current) {
           setActiveRoom((prevState) => ({
             ...prevState,

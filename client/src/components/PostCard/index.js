@@ -5,15 +5,19 @@ import { Link, useHistory } from 'react-router-dom'
 import { usePost } from '../../utils/PostContext'
 import { newChatRoom } from '../../utils/message-API'
 import { useUser } from '../../utils/UserContext'
+import { useChat } from '../../utils/ChatContext'
 
 function PostCard({ post, editable }) {
   const { handleDelete } = usePost()
   const [user] = useUser()
   let history = useHistory()
+  const { setChats } = useChat()
 
   const handleMessageBtn = (id, username) => {
     newChatRoom(id, username).then((res) => {
-      return history.push(`/user/chat/room/${res._id}`)
+      setChats((prevState) => [...prevState, res])
+      history.push(`/user/chat/room/${res._id}`)
+      return window.location.reload(true)
     })
   }
 
