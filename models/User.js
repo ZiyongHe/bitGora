@@ -20,7 +20,6 @@ const userSchema = new Schema({
 })
 
 userSchema.methods.validPassword = function (password) {
-  console.log(bcrypt.hashSync(this.password, bcrypt.genSaltSync(10)))
   return bcrypt.compareSync(password, this.password)
 }
 

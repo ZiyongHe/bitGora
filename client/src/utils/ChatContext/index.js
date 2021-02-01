@@ -32,7 +32,6 @@ export function ChatProvider(props) {
 
   useEffect(() => {
     activeRoomId.current = activeRoom._id
-    console.log(activeRoomId)
   }, [activeRoom])
 
   useEffect(() => {
@@ -54,7 +53,6 @@ export function ChatProvider(props) {
         // find the right chatroom object
         // save the message to it
         setChats((prevState) => {
-          console.log(prevState)
           prevState.map((room) => {
             // append the new message to its room in chatsContext chats state
             if (room._id === message.roomId) {

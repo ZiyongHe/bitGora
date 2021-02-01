@@ -62,7 +62,6 @@ export function PostProvider(props) {
     Promise.all([getUnownedPosts(), getOwnedPosts()]).then((result) => {
       const [unownedPosts, ownedPosts] = result
       if (unownedPosts.err || ownedPosts.err) {
-        console.log(unownedPosts.err)
         dispatch({ type: SET_ERR, err: result.err })
       } else {
         dispatch({
