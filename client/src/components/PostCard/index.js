@@ -39,31 +39,28 @@ function PostCard({ post, editable }) {
   )
 
   const messageSeller = (
-    <Button
+    <button
       onClick={() => handleMessageBtn(post._id, user.username)}
-      className="btn btn-primary w-100"
+      className="btn btn-warning w-100"
     >
       Message Seller
-    </Button>
+    </button>
   )
 
   return (
     <Card>
       <Card.Img variant="top" src={post.image.url} alt={post.name} />
-      <Card.Body className="pb-0">
-        <div className="d-sm-flex pb-3">
-          <Card.Title className="flex-grow-1">{post.name}</Card.Title>
-          <Card.Text className="flex-grow-1 text-sm-right h6">
-            {post.price}
-            <i className="fab fa-bitcoin ml-2" title="Bitcoin"></i>
-            <br />
-            20.00 (CAD)
-          </Card.Text>
-        </div>
+      <Card.Body>
+        <Card.Title>{post.name}</Card.Title>
         <Card.Text>{post.description}</Card.Text>
+        <Card.Text className="h6 mt-4">
+          {post.price}
+          <i className="fab fa-bitcoin ml-2" title="Bitcoin"></i>
+          <br />
+          20.00 (CAD)
+        </Card.Text>
       </Card.Body>
       <Card.Body className="pt-0">
-        <hr />
         {editable ? editableLinks : messageSeller}
       </Card.Body>
     </Card>

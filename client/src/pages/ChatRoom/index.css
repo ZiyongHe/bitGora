@@ -1,0 +1,57 @@
+/* Title*/
+#chatroom-title {
+  background-color: white;
+  position: sticky;
+  top: 70px;
+  z-index: 999;
+}
+
+/*Message list styles*/
+#message-list {
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.message-item {
+  margin-bottom: 0.25rem;
+}
+
+.message-item {
+  white-space: pre-wrap;
+}
+
+.my-message {
+  align-self: flex-end;
+  background-color: #f0c808;
+}
+
+.received-message {
+  background-color: rgba(0, 0, 0, 0.125);
+}
+
+/* Form styles*/
+#message-form {
+  background-color: white;
+  padding-top: 0.5rem;
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+}
+
+#message-group {
+  display: flex;
+}
+
+#message-area {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  resize: none;
+}
+
+#btn-send-message {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}

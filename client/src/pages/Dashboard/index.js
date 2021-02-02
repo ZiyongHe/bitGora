@@ -9,18 +9,20 @@ function Dashboard() {
   const { posts } = usePost()
 
   return (
-    <Container>
+    <Container className="mt-4">
       <Row>
         <Col>
-          <h1>Dashboard</h1>
+          <h1 className="mb-3">Dashboard</h1>
         </Col>
       </Row>
       <Row>
-        {posts.unownedPosts.map((post) => (
-          <Col xs={12} md={6} key={post._id}>
-            <PostCard post={post} editable={false} />
-          </Col>
-        ))}
+        <Col>
+          <div className="card-columns">
+            {posts.unownedPosts.map((post) => (
+              <PostCard key={post._id} post={post} editable={false} />
+            ))}
+          </div>
+        </Col>
       </Row>
     </Container>
   )

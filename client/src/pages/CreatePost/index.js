@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
@@ -13,6 +13,15 @@ function CreatePost() {
   const history = useHistory()
   // eslint-disable-next-line no-unused-vars
   const { dispatch } = usePost()
+  const [imageFile, setImageFile] = useState('')
+  const [imageURL, setImageURL] = useState('')
+
+  useEffect(() => {
+    if (imageFile) {
+      setImageURL(URL.createObjectURL(imageFile))
+    }
+    return URL.revokeObjectURL(imageFile)
+  }, [imageFile])
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -28,10 +37,10 @@ function CreatePost() {
   }
 
   return (
-    <Container>
+    <Container className="mt-4">
       <Row>
         <Col>
-          <h1>Create a post</h1>
+          <h1 className="mb-3">Create a post</h1>
         </Col>
       </Row>
       <Row>
@@ -46,7 +55,21 @@ function CreatePost() {
               />
             </Form.Group>
             <Form.Group controlId="image">
-              <Form.File name="image" label="Image of Product" />
+              <Form.File
+                name="image"
+                label="Image of Product"
+                onChange={(e) => setImageFile(e.target.files[0])}
+                accept="image/*"
+              />
+              {imageURL ? (
+                <img
+                  className="border rounded mt-3"
+                  src={imageURL}
+                  alt="Product"
+                  width="75%"
+                  height="auto"
+                />
+              ) : null}
             </Form.Group>
             <Form.Group controlId="description">
               <Form.Label>Description</Form.Label>
@@ -54,7 +77,7 @@ function CreatePost() {
             </Form.Group>
             <Form.Group controlId="price">
               <Form.Label>Price</Form.Label>
-              <Form.Control type="number" min="0" name="price" />
+              <Form.Control type="number" min="0" name="price" step={0.01} />
             </Form.Group>
             <Button variant="primary" type="submit">
               Create Post

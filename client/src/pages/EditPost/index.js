@@ -61,15 +61,15 @@ function EditPost() {
   }
 
   return (
-    <Container>
+    <Container className="mt-4">
       <Row>
         <Col>
-          <h1>Edit a post</h1>
+          <h1 className="mb-3">Edit a post</h1>
         </Col>
       </Row>
       <Row>
         <Col>
-          <Form onSubmit={handleSubmit}>
+          <Form className="mb-4" onSubmit={handleSubmit}>
             <Form.Group controlId="name">
               <Form.Label>Name</Form.Label>
               <Form.Control
@@ -86,15 +86,18 @@ function EditPost() {
               />
             </Form.Group>
             <Form.Group controlId="image">
+              <p className="mb-1">Image of Product</p>
               <img
+                className="border rounded mb-2"
                 src={post.image.url}
                 alt={`Original ${post.name}`}
-                width="100%"
+                width="75%"
                 height="auto"
               />
               <Form.File
                 name="image"
                 label="Choose new image"
+                accept="image/*"
                 onChange={(e) => setImageFile(e.target.files[0])}
               />
             </Form.Group>
@@ -116,6 +119,7 @@ function EditPost() {
             <Form.Group controlId="price">
               <Form.Label>Price</Form.Label>
               <Form.Control
+                step={0.01}
                 type="number"
                 min="0"
                 name="price"
@@ -132,7 +136,7 @@ function EditPost() {
               <Form.Check
                 checked={post.sold}
                 type="checkbox"
-                label="Mark as sold?"
+                label="Mark as sold"
                 onChange={(e) =>
                   setPost((prevState) => ({
                     ...prevState,
@@ -141,7 +145,7 @@ function EditPost() {
                 }
               />
             </Form.Group>
-            <Button variant="primary" type="submit">
+            <Button className="mr-3" variant="primary" type="submit">
               Save
             </Button>
             <Button

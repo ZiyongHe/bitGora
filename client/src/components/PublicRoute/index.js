@@ -14,7 +14,7 @@ function PublicRoute({ component: Component, exact, path, ...extra }) {
         } else if (!user.username) {
           return <Component {...extra} {...props} />
         } else {
-          return <Redirect to="/dashboard" />
+          return <Redirect to="/user/dashboard" />
         }
       }}
     />
