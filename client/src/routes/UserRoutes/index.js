@@ -5,6 +5,8 @@ import ProtectedRoute from '../../components/ProtectedRoute'
 import Dashboard from '../../pages/Dashboard'
 import Profile from '../../pages/Profile'
 import PostRoutes from '../PostRoutes'
+import ChatRoutes from '../ChatRoutes'
+import { ChatProvider } from '../../utils/ChatContext'
 
 function UserRoutes({ match }) {
   // When defining child routes,
@@ -12,23 +14,26 @@ function UserRoutes({ match }) {
   // console.log(match.path)
   return (
     <PostProvider>
-      <Switch>
-        <ProtectedRoute
-          exact
-          path={`${match.path}/dashboard`}
-          component={Dashboard}
-        />
-        <ProtectedRoute
-          exact
-          path={`${match.path}/profile`}
-          component={Profile}
-        />
+      <ChatProvider>
+        <Switch>
+          <ProtectedRoute
+            exact
+            path={`${match.path}/dashboard`}
+            component={Dashboard}
+          />
+          <ProtectedRoute
+            exact
+            path={`${match.path}/profile`}
+            component={Profile}
+          />
 
-        {/* Route for post routes */}
-        <ProtectedRoute path={`${match.path}/post`} component={PostRoutes} />
+          {/* Route for post routes */}
+          <ProtectedRoute path={`${match.path}/post`} component={PostRoutes} />
 
-        {/* Route for chat routes */}
-      </Switch>
+          {/* Route for chat routes */}
+          <ProtectedRoute path={`${match.path}/chat`} component={ChatRoutes} />
+        </Switch>
+      </ChatProvider>
     </PostProvider>
   )
 }

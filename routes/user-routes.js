@@ -64,7 +64,6 @@ router.post('/signup', async (req, res) => {
       res.status(500).json({ err: "Can't create your account at this time. " })
     }
   } catch (err) {
-    console.log(err)
     res.status(500).json({ err: err.message })
   }
 })

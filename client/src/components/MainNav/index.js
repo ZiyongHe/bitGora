@@ -38,6 +38,9 @@ function MainNav() {
             <Link to="/user/post/create" className="nav-link">
               Create Post
             </Link>
+            <Link to="/user/chat/list" className="nav-link">
+              Messages
+            </Link>
             <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
           </Nav>
         </div>
