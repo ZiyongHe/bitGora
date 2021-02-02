@@ -3,6 +3,11 @@ import { useParams } from 'react-router-dom'
 import { useUser } from '../../utils/UserContext'
 import { useChat } from '../../utils/ChatContext'
 import { getMessage } from '../../utils/message-API'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
 
 import './index.css'
 
@@ -15,7 +20,9 @@ const ChatRoom = () => {
 
   useEffect(() => {
     getMessage(id).then((res) => {
+      console.log(res)
       setActiveRoom(res)
+      window.scrollTo(0, document.body.scrollHeight)
     })
   }, [id])
 
@@ -29,35 +36,67 @@ const ChatRoom = () => {
   }
 
   return (
-    <div className="chat-room-container">
-      <div className="messages-container">
-        <ol className="messages-list">
-          {activeRoom
-            ? activeRoom.messages.map((message, i) => (
-                <li
-                  key={i}
-                  className={`message-item ${
-                    message.ownedByCurrentUser
-                      ? 'my-message'
-                      : 'received-message'
-                  }`}
-                >
-                  {message.body}
-                </li>
-              ))
-            : null}
-        </ol>
+    <>
+      <Container>
+        <Row id="chatroom-title" className="sticky-top border-bottom">
+          <Col>
+            <h1 className="my-3">
+              {activeRoom && activeRoom.members[0] === user.username
+                ? activeRoom.members[1]
+                : activeRoom.members[0]}
+            </h1>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <ul className="messages-list">
+              {activeRoom
+                ? activeRoom.messages.map((message, i) => (
+                    <li
+                      key={i}
+                      className={`message-item ${
+                        message.ownedByCurrentUser
+                          ? 'my-message'
+                          : 'received-message'
+                      }`}
+                    >
+                      {message.body}
+                    </li>
+                  ))
+                : null}
+            </ul>
+          </Col>
+        </Row>
+      </Container>
+      <div id="message-form">
+        <Container>
+          <Row>
+            <Col>
+              <Form onSubmit={handleSendMessage}>
+                <Form.Group id="message-group">
+                  <Form.Control
+                    id="message-area"
+                    as="textarea"
+                    value={newMessage}
+                    onChange={handleNewMessageChange}
+                    placeholder="Write message..."
+                    className="new-message-input-field"
+                  />
+                  <Button
+                    id="btn-send-message"
+                    variant="warning"
+                    onClick={handleSendMessage}
+                    className="send-message-button"
+                  >
+                    Send
+                  </Button>
+                </Form.Group>
+              </Form>
+            </Col>
+          </Row>
+        </Container>
       </div>
-      <textarea
-        value={newMessage}
-        onChange={handleNewMessageChange}
-        placeholder="Write message..."
-        className="new-message-input-field"
-      />
-      <button onClick={handleSendMessage} className="send-message-button">
-        Send
-      </button>
-    </div>
+    </>
   )
 }
 

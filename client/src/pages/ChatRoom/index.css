@@ -1,0 +1,25 @@
+#chatroom-title {
+  background-color: white;
+}
+
+#message-form {
+  background-color: white;
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+}
+
+#message-group {
+  display: flex;
+}
+
+#message-area {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  resize: none;
+}
+
+#btn-send-message {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
