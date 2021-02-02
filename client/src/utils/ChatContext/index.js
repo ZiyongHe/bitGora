@@ -52,7 +52,7 @@ export function ChatProvider(props) {
       socketRef.current.on(NEW_CHAT_MESSAGE_EVENT, (message) => {
         // find the right chatroom object
         // save the message to it
-        setChats((prevState) => {
+        setChats((prevState) =>
           prevState.map((room) => {
             // append the new message to its room in chatsContext chats state
             if (room._id === message.roomId) {
@@ -60,7 +60,7 @@ export function ChatProvider(props) {
             }
             return room
           })
-        })
+        )
         // if the new message is for the current active room, append to activeRoom state too
         if (message.roomId === activeRoomId.current) {
           setActiveRoom((prevState) => ({
