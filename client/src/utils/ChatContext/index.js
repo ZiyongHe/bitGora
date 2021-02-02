@@ -28,11 +28,6 @@ export function ChatProvider(props) {
     members: [],
   })
   const socketRef = useRef()
-  const activeRoomId = useRef()
-
-  useEffect(() => {
-    activeRoomId.current = activeRoom._id
-  }, [activeRoom])
 
   useEffect(() => {
     // get chat room list with user name
@@ -47,7 +42,15 @@ export function ChatProvider(props) {
       res.forEach((room) => {
         socketRef.current.emit(SUBSCRIBE, room._id)
       })
+    })
 
+    return () => {
+      socketRef.current.disconnect()
+    }
+  }, [])
+
+  useEffect(() => {
+    if (socketRef.current) {
       // Listens for incoming messages (add to FRONT END context provider)
       socketRef.current.on(NEW_CHAT_MESSAGE_EVENT, (message) => {
         // find the right chatroom object
@@ -62,19 +65,15 @@ export function ChatProvider(props) {
           })
         )
         // if the new message is for the current active room, append to activeRoom state too
-        if (message.roomId === activeRoomId.current) {
+        if (message.roomId === activeRoom._id) {
           setActiveRoom((prevState) => ({
             ...prevState,
             messages: [...prevState.messages, message],
           }))
         }
       })
-    })
-
-    return () => {
-      socketRef.current.disconnect()
     }
-  }, [activeRoomId])
+  }, [activeRoom])
 
   const sendMessage = (messageBody, roomId) => {
     socketRef.current.emit(NEW_CHAT_MESSAGE_EVENT, {
