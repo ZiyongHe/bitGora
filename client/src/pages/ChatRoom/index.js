@@ -11,12 +11,21 @@ import Button from 'react-bootstrap/Button'
 
 import './index.css'
 
+const SHIFT_LEFT = 'ShiftLeft'
+const SHIFT_RIGHT = 'ShiftRight'
+const ENTER = 'Enter'
+
 const ChatRoom = () => {
   // use the activeRoom state from useChat
   const [user] = useUser()
   const { id } = useParams()
   const { sendMessage, activeRoom, setActiveRoom } = useChat()
   const [newMessage, setNewMessage] = useState('') // Message to be sent
+  const [keyPressed, setKeyPressed] = useState({
+    [SHIFT_LEFT]: false,
+    [SHIFT_RIGHT]: false,
+    [ENTER]: false,
+  })
 
   useEffect(() => {
     getMessage(id).then((res) => {
@@ -30,6 +39,21 @@ const ChatRoom = () => {
     window.scrollTo(0, document.body.scrollHeight)
   }, [activeRoom.messages])
 
+  useEffect(() => {
+    if (
+      (keyPressed[SHIFT_LEFT] || keyPressed[SHIFT_RIGHT]) &&
+      keyPressed[ENTER]
+    ) {
+      setNewMessage((prevState) => prevState + '\n')
+    } else if (
+      keyPressed[ENTER] &&
+      !keyPressed[SHIFT_LEFT] &&
+      !keyPressed[SHIFT_RIGHT]
+    ) {
+      handleSendMessage()
+    }
+  }, [keyPressed])
+
   const handleNewMessageChange = (event) => {
     setNewMessage(event.target.value)
   }
@@ -37,6 +61,24 @@ const ChatRoom = () => {
   const handleSendMessage = () => {
     sendMessage(newMessage, id)
     setNewMessage('')
+  }
+
+  const handleKeyDown = (e) => {
+    if (e.code === ENTER || e.code === SHIFT_LEFT || e.code === SHIFT_RIGHT) {
+      if (e.code === ENTER) {
+        e.preventDefault()
+      }
+      setKeyPressed((prevState) => ({ ...prevState, [e.code]: true }))
+    }
+  }
+
+  const handleKeyUp = (e) => {
+    if (e.code === ENTER || e.code === SHIFT_LEFT || e.code === SHIFT_RIGHT) {
+      if (e.code === ENTER) {
+        e.preventDefault()
+      }
+      setKeyPressed((prevState) => ({ ...prevState, [e.code]: false }))
+    }
   }
 
   return (
@@ -85,12 +127,8 @@ const ChatRoom = () => {
                     onChange={handleNewMessageChange}
                     placeholder="Write message..."
                     className="new-message-input-field"
-                    onKeyDown={(e) => {
-                      if (e.code === 'Enter') {
-                        e.preventDefault()
-                        handleSendMessage()
-                      }
-                    }}
+                    onKeyDown={handleKeyDown}
+                    onKeyUp={handleKeyUp}
                   />
                   <Button
                     id="btn-send-message"

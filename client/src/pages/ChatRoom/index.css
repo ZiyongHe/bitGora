@@ -19,6 +19,10 @@
   margin-bottom: 0.25rem;
 }
 
+.message-item {
+  white-space: pre-wrap;
+}
+
 .my-message {
   align-self: flex-end;
   background-color: #f0c808;
