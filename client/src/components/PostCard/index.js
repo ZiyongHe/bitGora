@@ -39,12 +39,12 @@ function PostCard({ post, editable }) {
   )
 
   const messageSeller = (
-    <Button
+    <button
       onClick={() => handleMessageBtn(post._id, user.username)}
       className="btn btn-warning w-100"
     >
       Message Seller
-    </Button>
+    </button>
   )
 
   return (
