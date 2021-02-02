@@ -26,6 +26,10 @@ const ChatRoom = () => {
     })
   }, [id])
 
+  useEffect(() => {
+    window.scrollTo(0, document.body.scrollHeight)
+  }, [activeRoom.messages])
+
   const handleNewMessageChange = (event) => {
     setNewMessage(event.target.value)
   }
@@ -72,7 +76,7 @@ const ChatRoom = () => {
         <Container>
           <Row>
             <Col>
-              <Form onSubmit={handleSendMessage}>
+              <Form>
                 <Form.Group id="message-group">
                   <Form.Control
                     id="message-area"
@@ -81,6 +85,12 @@ const ChatRoom = () => {
                     onChange={handleNewMessageChange}
                     placeholder="Write message..."
                     className="new-message-input-field"
+                    onKeyDown={(e) => {
+                      if (e.code === 'Enter') {
+                        e.preventDefault()
+                        handleSendMessage()
+                      }
+                    }}
                   />
                   <Button
                     id="btn-send-message"
