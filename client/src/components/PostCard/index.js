@@ -11,13 +11,12 @@ function PostCard({ post, editable }) {
   const { handleDelete } = usePost()
   const [user] = useUser()
   let history = useHistory()
-  const { setChats } = useChat()
+  const { joinNewRoom } = useChat()
 
   const handleMessageBtn = (id, username) => {
     newChatRoom(id, username).then((res) => {
-      setChats((prevState) => [...prevState, res])
+      joinNewRoom(res)
       history.push(`/user/chat/room/${res._id}`)
-      return window.location.reload(true)
     })
   }
 

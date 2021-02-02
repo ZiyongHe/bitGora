@@ -85,9 +85,21 @@ export function ChatProvider(props) {
     })
   }
 
+  const joinNewRoom = (res) => {
+    setChats((prevState) => [...prevState, res])
+    socketRef.current.emit(SUBSCRIBE, res._id)
+  }
+
   return (
     <ChatContext.Provider
-      value={{ chats, setChats, sendMessage, activeRoom, setActiveRoom }}
+      value={{
+        chats,
+        setChats,
+        sendMessage,
+        activeRoom,
+        setActiveRoom,
+        joinNewRoom,
+      }}
       {...props}
     />
   )
