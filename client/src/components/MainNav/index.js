@@ -26,7 +26,7 @@ function MainNav() {
       <Navbar.Collapse id="menu">
         <div className="d-lg-flex justify-content-between w-100">
           <Navbar.Text>
-            Welcome <span className="font-weight-bolder">{user.username}</span>!
+            Welcome! <span className="font-weight-bolder">{user.username}</span>
           </Navbar.Text>
           <Nav>
             <Link to="/user/dashboard" className="nav-link">
