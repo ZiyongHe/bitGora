@@ -31,8 +31,6 @@ export function ChatProvider(props) {
 
   useEffect(() => {
     // get chat room list with user name
-    // for new created room, (create room id takes longer to be available) id is not in the database yet, so it's not listened by the socket.io
-    // resolved: window.reload() after create a chat room. PostCard index line 20
     getChatRoom(user.username).then((res) => {
       setChats(res)
 
