@@ -57,16 +57,15 @@ function PostCard({ post, editable }) {
       <Card.Body>
         <Card.Title>{post.name}</Card.Title>
         <Card.Text>{post.description}</Card.Text>
-        <Card.Text className="h6 mt-4">
-          <h4 className="d-flex justify-content-end">
-            <span>{post.price.toFixed(2)}</span>
-            <i
-              className="fab fa-btc ml-2 d-flex align-items-center"
-              title="Bitcoin"
-            ></i>
-          </h4>
-          <p className="d-flex justify-content-end">({price.toFixed(0)} CAD)</p>
-        </Card.Text>
+
+        <h4 className="d-flex justify-content-end mt-4">
+          <span>{post.price.toFixed(2)}</span>
+          <i
+            className="fab fa-btc ml-2 d-flex align-items-center"
+            title="Bitcoin"
+          ></i>
+        </h4>
+        <p className="d-flex justify-content-end">({price.toFixed(0)} CAD)</p>
       </Card.Body>
       <Card.Body className="pt-0">
         {editable ? editableLinks : messageSeller}
