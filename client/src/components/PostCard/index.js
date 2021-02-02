@@ -6,12 +6,14 @@ import { usePost } from '../../utils/PostContext'
 import { newChatRoom } from '../../utils/message-API'
 import { useUser } from '../../utils/UserContext'
 import { useChat } from '../../utils/ChatContext'
+import { useRate } from '../../utils/RateContext'
 
 function PostCard({ post, editable }) {
   const { handleDelete } = usePost()
   const [user] = useUser()
   let history = useHistory()
   const { joinNewRoom } = useChat()
+  const [rate] = useRate()
 
   const handleMessageBtn = (id, username) => {
     newChatRoom(id, username).then((res) => {
@@ -47,6 +49,8 @@ function PostCard({ post, editable }) {
     </button>
   )
 
+  const price = rate * post.price
+
   return (
     <Card>
       <Card.Img variant="top" src={post.image.url} alt={post.name} />
@@ -54,10 +58,14 @@ function PostCard({ post, editable }) {
         <Card.Title>{post.name}</Card.Title>
         <Card.Text>{post.description}</Card.Text>
         <Card.Text className="h6 mt-4">
-          {post.price}
-          <i className="fab fa-bitcoin ml-2" title="Bitcoin"></i>
-          <br />
-          20.00 (CAD)
+          <h4 className="d-flex justify-content-end">
+            <span>{post.price.toFixed(2)}</span>
+            <i
+              className="fab fa-btc ml-2 d-flex align-items-center"
+              title="Bitcoin"
+            ></i>
+          </h4>
+          <p className="d-flex justify-content-end">({price.toFixed(0)} CAD)</p>
         </Card.Text>
       </Card.Body>
       <Card.Body className="pt-0">
