@@ -49,7 +49,7 @@ const ChatRoom = () => {
         </Row>
         <Row>
           <Col>
-            <ul className="messages-list">
+            <ul className="messages-list mt-3">
               {activeRoom
                 ? activeRoom.messages.map((message, i) => (
                     <li
