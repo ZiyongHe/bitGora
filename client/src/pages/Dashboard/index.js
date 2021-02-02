@@ -16,11 +16,13 @@ function Dashboard() {
         </Col>
       </Row>
       <Row>
-        {posts.unownedPosts.map((post) => (
-          <Col xs={12} md={6} key={post._id}>
-            <PostCard post={post} editable={false} />
-          </Col>
-        ))}
+        <Col>
+          <div className="card-columns">
+            {posts.unownedPosts.map((post) => (
+              <PostCard key={post._id} post={post} editable={false} />
+            ))}
+          </div>
+        </Col>
       </Row>
     </Container>
   )

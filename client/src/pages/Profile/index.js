@@ -16,11 +16,13 @@ function Profile() {
         </Col>
       </Row>
       <Row>
-        {posts.ownedPosts.map((post) => (
-          <Col xs={12} md={6} key={post._id}>
-            <PostCard post={post} editable={true} />
-          </Col>
-        ))}
+        <Col>
+          <div className="card-columns">
+            {posts.ownedPosts.map((post) => (
+              <PostCard key={post._id} post={post} editable={true} />
+            ))}
+          </div>
+        </Col>
       </Row>
     </Container>
   )

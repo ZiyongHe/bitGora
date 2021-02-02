@@ -83,3 +83,16 @@ h5,
 .h5 {
   font-family: 'Signika', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
+/* For card display*/
+@media (min-width: 576px) {
+  .card-columns {
+    column-count: 2;
+  }
+}
+
+@media (min-width: 992px) {
+  .card-columns {
+    column-count: 3;
+  }
+}
