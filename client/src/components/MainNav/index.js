@@ -49,7 +49,7 @@ function MainNav() {
   )
 
   return (
-    <Navbar expand="lg" id="main-nav">
+    <Navbar expand="lg" id="main-nav" className="sticky-top">
       <Navbar.Brand>
         <Link to={!user.loading && user.username ? '/user/dashboard' : '/'}>
           <Logo height="40" />

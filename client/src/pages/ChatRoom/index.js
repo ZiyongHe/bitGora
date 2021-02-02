@@ -38,7 +38,7 @@ const ChatRoom = () => {
   return (
     <>
       <Container>
-        <Row id="chatroom-title" className="sticky-top border-bottom">
+        <Row id="chatroom-title" className="border-bottom">
           <Col>
             <h1 className="my-3">
               {activeRoom && activeRoom.members[0] === user.username
@@ -49,13 +49,13 @@ const ChatRoom = () => {
         </Row>
         <Row>
           <Col>
-            <ul className="messages-list mt-3">
+            <ul id="message-list" className="mt-3">
               {activeRoom
                 ? activeRoom.messages.map((message, i) => (
                     <li
                       key={i}
-                      className={`message-item ${
-                        message.ownedByCurrentUser
+                      className={`message-item p-2 rounded ${
+                        message.username === user.username
                           ? 'my-message'
                           : 'received-message'
                       }`}
