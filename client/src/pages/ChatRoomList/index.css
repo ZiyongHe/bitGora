@@ -1,0 +1,7 @@
+.btn-enter-chat {
+  border-radius: 0;
+}
+
+.btn-enter-chat:hover {
+  background-color: rgba(0, 0, 0, 0.125);
+}
