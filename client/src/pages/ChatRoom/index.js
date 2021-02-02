@@ -11,7 +11,7 @@ const ChatRoom = () => {
   // use the activeRoom state from useChat
   const [user] = useUser()
   const { id } = useParams()
-  const { activeRoom, setActiveRoom, chats, sendMessage } = useChat()
+  const { sendMessage, activeRoom, setActiveRoom } = useChat()
   // const { messages, sendMessage } = useChat(id, user.username) // Creates a websocket and manages messaging
   const [newMessage, setNewMessage] = useState('') // Message to be sent
 

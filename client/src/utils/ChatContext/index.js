@@ -28,13 +28,9 @@ export function ChatProvider(props) {
     members: [],
   })
   const socketRef = useRef()
-  const activeRoomId = useRef()
 
   useEffect(() => {
-    activeRoomId.current = activeRoom._id
-  }, [activeRoom])
-
-  useEffect(() => {
+    // get chat room list with user name
     getChatRoom(user.username).then((res) => {
       setChats(res)
 
@@ -44,32 +40,38 @@ export function ChatProvider(props) {
       res.forEach((room) => {
         socketRef.current.emit(SUBSCRIBE, room._id)
       })
+    })
 
-      // Listens for incoming messages
+    return () => {
+      socketRef.current.disconnect()
+    }
+  }, [])
+
+  useEffect(() => {
+    if (socketRef.current) {
+      // Listens for incoming messages (add to FRONT END context provider)
       socketRef.current.on(NEW_CHAT_MESSAGE_EVENT, (message) => {
         // find the right chatroom object
         // save the message to it
         setChats((prevState) =>
           prevState.map((room) => {
+            // append the new message to its room in chatsContext chats state
             if (room._id === message.roomId) {
               room.messages.push(message._id)
             }
             return room
           })
         )
-        if (message.roomId === activeRoomId.current) {
+        // if the new message is for the current active room, append to activeRoom state too
+        if (message.roomId === activeRoom._id) {
           setActiveRoom((prevState) => ({
             ...prevState,
             messages: [...prevState.messages, message],
           }))
         }
       })
-    })
-
-    return () => {
-      socketRef.current.disconnect()
     }
-  }, [activeRoomId])
+  }, [activeRoom])
 
   const sendMessage = (messageBody, roomId) => {
     socketRef.current.emit(NEW_CHAT_MESSAGE_EVENT, {
@@ -80,9 +82,21 @@ export function ChatProvider(props) {
     })
   }
 
+  const joinNewRoom = (res) => {
+    setChats((prevState) => [...prevState, res])
+    socketRef.current.emit(SUBSCRIBE, res._id)
+  }
+
   return (
     <ChatContext.Provider
-      value={{ chats, setChats, sendMessage, activeRoom, setActiveRoom }}
+      value={{
+        chats,
+        setChats,
+        sendMessage,
+        activeRoom,
+        setActiveRoom,
+        joinNewRoom,
+      }}
       {...props}
     />
   )
