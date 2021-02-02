@@ -21,6 +21,9 @@ const ChatRoom = () => {
   const { id } = useParams()
   const { sendMessage, activeRoom, setActiveRoom } = useChat()
   const [newMessage, setNewMessage] = useState('') // Message to be sent
+  // used for text box
+  // if user is presseing shift and enter, then it will create a new line
+  // but if user preses only enter, will send message (see functions below)
   const [keyPressed, setKeyPressed] = useState({
     [SHIFT_LEFT]: false,
     [SHIFT_RIGHT]: false,
@@ -40,11 +43,13 @@ const ChatRoom = () => {
   }, [activeRoom.messages])
 
   useEffect(() => {
+    // creating new line
     if (
       (keyPressed[SHIFT_LEFT] || keyPressed[SHIFT_RIGHT]) &&
       keyPressed[ENTER]
     ) {
       setNewMessage((prevState) => prevState + '\n')
+      // sending a message
     } else if (
       keyPressed[ENTER] &&
       !keyPressed[SHIFT_LEFT] &&
@@ -63,6 +68,7 @@ const ChatRoom = () => {
     setNewMessage('')
   }
 
+  // setting state for shift and enter keys
   const handleKeyDown = (e) => {
     if (e.code === ENTER || e.code === SHIFT_LEFT || e.code === SHIFT_RIGHT) {
       if (e.code === ENTER) {
@@ -72,6 +78,7 @@ const ChatRoom = () => {
     }
   }
 
+  // setting state for shift and enter keys
   const handleKeyUp = (e) => {
     if (e.code === ENTER || e.code === SHIFT_LEFT || e.code === SHIFT_RIGHT) {
       if (e.code === ENTER) {
