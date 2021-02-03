@@ -13,6 +13,8 @@ const ChatRoomList = () => {
   const { chats } = useChat()
   let history = useHistory()
 
+  console.log(chats)
+
   function enterRoomBtn(roomId) {
     return history.push(`/user/chat/room/${roomId}`)
   }
@@ -21,7 +23,7 @@ const ChatRoomList = () => {
     <Container className="mt-4 pb-5">
       <Row>
         <Col>
-          <h1 className="mb-3">Messages</h1>
+          <h1 className="mb-3">Conversations</h1>
         </Col>
       </Row>
       {chats.map((room) => (
@@ -33,12 +35,35 @@ const ChatRoomList = () => {
                 className="btn btn-enter-chat"
               >
                 <Card.Body className="d-flex align-items-center justify-content-between">
-                  <Card.Title className="mb-0">
-                    {room.members[0] === user.username
-                      ? room.members[1]
-                      : room.members[0]}
-                  </Card.Title>
-                  <i className="fas fa-chevron-right"></i>
+                  <div className="d-flex align-items-center">
+                    {room.postId ? (
+                      <img
+                        className="related-post-img mr-3"
+                        src={room.postId.image.url}
+                        alt={room.postId.name}
+                      />
+                    ) : null}
+                    <div>
+                      <Card.Title className="mb-0 d-flex align-items-center">
+                        <i className="fas fa-user-circle mr-2"></i>
+                        {room.members[0] === user.username
+                          ? room.members[1]
+                          : room.members[0]}
+                      </Card.Title>
+                      {room.postId ? (
+                        <Card.Text className="about-text text-left">
+                          About
+                          <strong>
+                            {room.postId.userName === user.username
+                              ? ' your '
+                              : ' their '}
+                          </strong>
+                          post: "{room.postId.name}"
+                        </Card.Text>
+                      ) : null}
+                    </div>
+                  </div>
+                  <i className="fas fa-chevron-right ml-2"></i>
                 </Card.Body>
               </button>
             </Card>

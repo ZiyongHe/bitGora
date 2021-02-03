@@ -39,7 +39,7 @@ function MainNav() {
               Create Post
             </Link>
             <Link to="/user/chat/list" className="nav-link">
-              Messages
+              Conversations
             </Link>
             <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
           </Nav>

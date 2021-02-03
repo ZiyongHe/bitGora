@@ -68,8 +68,11 @@ export function ChatProvider(props) {
   }
 
   const joinNewRoom = (res) => {
-    setChats((prevState) => [...prevState, res])
-    socketRef.current.emit(SUBSCRIBE, res._id)
+    const existingRoom = chats.find((room) => room._id === res._id)
+    if (!existingRoom) {
+      setChats((prevState) => [...prevState, res])
+      socketRef.current.emit(SUBSCRIBE, res._id)
+    }
   }
 
   const handleNewMessage = (message) => {

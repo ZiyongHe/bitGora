@@ -47,7 +47,7 @@ function CreatePost() {
         <Col>
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="name">
-              <Form.Label>Name</Form.Label>
+              <Form.Label>Title</Form.Label>
               <Form.Control
                 name="name"
                 type="text"

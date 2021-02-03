@@ -5,3 +5,14 @@
 .btn-enter-chat:hover {
   background-color: rgba(0, 0, 0, 0.125);
 }
+
+.about-text {
+  color: #6a6a6a;
+}
+
+.related-post-img {
+  border-radius: 0.25rem;
+  width: 8rem;
+  height: 5rem;
+  object-fit: cover;
+}

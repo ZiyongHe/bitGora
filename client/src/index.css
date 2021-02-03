@@ -46,7 +46,12 @@ body {
 }
 
 .btn-primary:hover,
-.btn-primary:focus,
+.btn-primary:focus {
+  background-color: #0c7087;
+  border: none;
+  box-shadow: 0 0 0 0.2rem rgb(6 174 213 / 50%);
+}
+
 .btn-primary:active,
 .btn-primary:not(:disabled):not(.disabled):active,
 .btn-primary:not(:disabled):not(.disabled):active:focus {
@@ -56,12 +61,16 @@ body {
 }
 
 .btn-danger {
-  background-color: #880819;
+  background-color: #a72032;
   border: none;
 }
 
 .btn-danger:hover,
-.btn-danger:focus,
+.btn-danger:focus {
+  background-color: #5d0a14;
+  border: none;
+}
+
 .btn-danger:active,
 .btn-danger:not(:disabled):not(.disabled):active,
 .btn-danger:not(:disabled):not(.disabled):active:focus {

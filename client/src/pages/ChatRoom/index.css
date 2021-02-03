@@ -55,3 +55,7 @@
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
+
+.chatroom-icon {
+  font-size: 2rem;
+}

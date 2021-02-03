@@ -54,6 +54,11 @@ function EditPost() {
     e.preventDefault()
     const form = new FormData(e.target)
     form.append('_id', post._id)
+    if (form.get('sold') === 'on') {
+      form.set('sold', true)
+    } else {
+      form.set('sold', false)
+    }
     updatePost(form).then((response) => {
       dispatch({ type: UPDATE_OWNED_POST, newPost: response.data })
       history.push('/user/profile')
@@ -71,7 +76,7 @@ function EditPost() {
         <Col>
           <Form className="mb-4" onSubmit={handleSubmit}>
             <Form.Group controlId="name">
-              <Form.Label>Name</Form.Label>
+              <Form.Label>Title</Form.Label>
               <Form.Control
                 value={post.name}
                 onChange={(e) =>
@@ -134,6 +139,7 @@ function EditPost() {
             </Form.Group>
             <Form.Group controlId="sold">
               <Form.Check
+                name="sold"
                 checked={post.sold}
                 type="checkbox"
                 label="Mark as sold"
