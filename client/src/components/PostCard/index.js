@@ -86,7 +86,7 @@ function PostCard({ post, editable }) {
             }`}
           >
             Sold by: <i className="fas fa-user-circle mr-1 ml-2"></i>
-            {post.userName}
+            {post.userName === user.username ? 'You' : post.userName}
           </Card.Text>
         </div>
       </Card.Body>
