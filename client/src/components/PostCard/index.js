@@ -8,6 +8,8 @@ import { useUser } from '../../utils/UserContext'
 import { useChat } from '../../utils/ChatContext'
 import { useRate } from '../../utils/RateContext'
 
+import './style.css'
+
 function PostCard({ post, editable }) {
   const { handleDelete } = usePost()
   const [user] = useUser()
@@ -49,6 +51,8 @@ function PostCard({ post, editable }) {
     </button>
   )
 
+  const isSold = <p className="btn-sold px-3 py-1">Sold</p>
+
   const price = rate * post.price
 
   return (
@@ -57,18 +61,20 @@ function PostCard({ post, editable }) {
       <Card.Body>
         <Card.Title>{post.name}</Card.Title>
         <Card.Text>{post.description}</Card.Text>
-
-        <h4 className="d-flex justify-content-end mt-4">
-          <span>{post.price.toFixed(2)}</span>
-          <i
-            className="fab fa-btc ml-2 d-flex align-items-center"
-            title="Bitcoin"
-          ></i>
-        </h4>
-        <p className="d-flex justify-content-end">({price.toFixed(0)} CAD)</p>
+        <div className="d-flex flex-column align-items-end mt-4">
+          {post.sold ? isSold : null}
+          <h4 className="d-flex">
+            {post.price.toFixed(2)}
+            <i
+              className="fab fa-btc ml-2 d-flex align-items-center"
+              title="Bitcoin"
+            ></i>
+          </h4>
+          <p>({price.toFixed(0)} CAD)</p>
+        </div>
       </Card.Body>
       <Card.Body className="pt-0">
-        {editable ? editableLinks : messageSeller}
+        {editable ? editableLinks : !post.sold ? messageSeller : null}
       </Card.Body>
     </Card>
   )
