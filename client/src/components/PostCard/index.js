@@ -7,6 +7,7 @@ import { newChatRoom } from '../../utils/message-API'
 import { useUser } from '../../utils/UserContext'
 import { useChat } from '../../utils/ChatContext'
 import { useRate } from '../../utils/RateContext'
+import AnimatedNumber from 'animated-number-react'
 
 import './style.css'
 
@@ -54,6 +55,9 @@ function PostCard({ post, editable }) {
   const isSold = <p className="btn-sold px-3 py-1 mb-1">Sold</p>
 
   const price = rate * post.price
+  function formatValue(value) {
+    return `(${Number(value).toFixed(0)} CAD)`
+  }
 
   return (
     <Card>
@@ -70,9 +74,16 @@ function PostCard({ post, editable }) {
               title="Bitcoin"
             ></i>
           </h4>
-          <p>({price.toFixed(0)} CAD)</p>
+          <AnimatedNumber
+            className="d-flex justify-content-end"
+            value={price}
+            formatValue={formatValue}
+            duration={800}
+          />
           <Card.Text
-            className={`sold-by-text ${!editable && post.sold ? 'mb-0' : ''}`}
+            className={`sold-by-text mt-2 ${
+              !editable && post.sold ? 'mb-0' : ''
+            }`}
           >
             Sold by: <i className="fas fa-user-circle mr-1 ml-2"></i>
             {post.userName}

@@ -22,11 +22,14 @@ export function ChatProvider(props) {
       members: [],
     },
   ])
+
   const [activeRoom, setActiveRoom] = useState({
     _id: '',
     messages: [],
     members: [],
   })
+  // counter for counting unread new message
+  const [count, setCount] = useState()
   const socketRef = useRef()
   const activeRoomId = useRef()
 

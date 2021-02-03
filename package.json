@@ -28,6 +28,7 @@
     "prettier": "^2.1.2"
   },
   "dependencies": {
+    "animated-number-react": "^0.1.1",
     "bcrypt": "^5.0.0",
     "cloudinary": "^1.23.0",
     "connect-flash": "^0.1.1",
