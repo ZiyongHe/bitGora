@@ -54,7 +54,7 @@ const ChatRoomList = () => {
                         <Card.Text className="about-text text-left">
                           About
                           <strong>
-                            {room.postId.username === user.username
+                            {room.postId.userName === user.username
                               ? ' your '
                               : ' their '}
                           </strong>

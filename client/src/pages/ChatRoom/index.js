@@ -93,12 +93,32 @@ const ChatRoom = () => {
       <Container className="flex-grow-1 d-flex flex-column">
         <Row id="chatroom-title" className="border-bottom py-3">
           <Col className="d-flex align-items-center">
-            <i className="fas fa-user-circle mr-3 chatroom-icon"></i>
-            <h1 className="mb-0">
-              {activeRoom && activeRoom.members[0] === user.username
-                ? activeRoom.members[1]
-                : activeRoom.members[0]}
-            </h1>
+            {activeRoom.postId ? (
+              <img
+                className="related-post-img mr-3"
+                src={activeRoom.postId.image.url}
+                alt={activeRoom.postId.name}
+              />
+            ) : null}
+            <div>
+              <h1 className="mb-0 d-flex align-items-center">
+                <i className="fas fa-user-circle mr-3 chatroom-icon"></i>
+                {activeRoom && activeRoom.members[0] === user.username
+                  ? activeRoom.members[1]
+                  : activeRoom.members[0]}
+              </h1>
+              {activeRoom.postId ? (
+                <p className="mb-0">
+                  About
+                  <strong>
+                    {activeRoom.postId.userName === user.username
+                      ? ' your '
+                      : ' their '}
+                  </strong>
+                  post: "{activeRoom.postId.name}"
+                </p>
+              ) : null}
+            </div>
           </Col>
         </Row>
         <Row className="flex-grow-1">
