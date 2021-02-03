@@ -64,4 +64,33 @@ router.post('/', (req, res) => {
   })
 })
 
+// *************add 1 in chatroom notification array***************
+router.put('/addnotifictaion/:roomId', (req, res) => {
+  const RoomId = req.params.roomId
+  const index = req.body.index
+  ChatRoom.findOne({ _id: mongoose.Types.ObjectId(RoomId) })
+    .then((doc) => {
+      doc.chatNotification[index] += 1
+      doc.save()
+    })
+    .then((doc) => {
+      res.json(doc)
+    })
+})
+
+// *************zero in chatroom notification array***************
+router.put('/zeronotifictaion/:roomId', (req, res) => {
+  const RoomId = req.params.roomId
+  const username = req.body.username
+  ChatRoom.findOne({ _id: mongoose.Types.ObjectId(RoomId) })
+    .then((doc) => {
+      const index = doc.members.indexOf(username)
+      doc.chatNotification[index] = 0
+      doc.save()
+    })
+    .then((doc) => {
+      res.json(doc)
+    })
+})
+
 module.exports = router
