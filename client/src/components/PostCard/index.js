@@ -70,10 +70,12 @@ function PostCard({ post, editable }) {
               title="Bitcoin"
             ></i>
           </h4>
-          <p>({price.toFixed(0)} CAD)</p>
+          <p className={!editable && post.sold ? 'mb-0' : ''}>
+            ({price.toFixed(0)} CAD)
+          </p>
         </div>
       </Card.Body>
-      <Card.Body className="pt-0">
+      <Card.Body className={`pt-0 ${!editable && post.sold ? 'pb-0' : ''}`}>
         {editable ? editableLinks : !post.sold ? messageSeller : null}
       </Card.Body>
     </Card>
