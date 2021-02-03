@@ -16,7 +16,10 @@ router.get('/messages/:roomId', (req, res) => {
 // ****************get user's chatroom list*******************
 router.get('/list/:username', (req, res) => {
   User.findOne({ username: req.params.username })
-    .populate('ChatRoom')
+    .populate({
+      path: 'ChatRoom',
+      populate: 'postId',
+    })
     .then((doc) => {
       return res.json(doc.ChatRoom)
     })

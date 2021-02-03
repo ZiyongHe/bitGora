@@ -13,6 +13,8 @@ const ChatRoomList = () => {
   const { chats } = useChat()
   let history = useHistory()
 
+  console.log(chats)
+
   function enterRoomBtn(roomId) {
     return history.push(`/user/chat/room/${roomId}`)
   }
@@ -33,12 +35,34 @@ const ChatRoomList = () => {
                 className="btn btn-enter-chat"
               >
                 <Card.Body className="d-flex align-items-center justify-content-between">
-                  <Card.Title className="mb-0 d-flex align-items-center">
-                    <i className="fas fa-user-circle mr-3 message-icon"></i>
-                    {room.members[0] === user.username
-                      ? room.members[1]
-                      : room.members[0]}
-                  </Card.Title>
+                  <div className="d-flex align-items-center">
+                    {room.postId ? (
+                      <img
+                        className="related-post-img mr-3"
+                        src={room.postId.image.url}
+                        alt={room.postId.name}
+                      />
+                    ) : null}
+                    <div>
+                      <Card.Title className="mb-0 d-flex align-items-center">
+                        <i className="fas fa-user-circle mr-2"></i>
+                        {room.members[0] === user.username
+                          ? room.members[1]
+                          : room.members[0]}
+                      </Card.Title>
+                      {room.postId ? (
+                        <Card.Text className="about-text">
+                          About
+                          <strong>
+                            {room.postId.username === user.username
+                              ? ' your '
+                              : ' their '}
+                          </strong>
+                          post: "{room.postId.name}"
+                        </Card.Text>
+                      ) : null}
+                    </div>
+                  </div>
                   <i className="fas fa-chevron-right"></i>
                 </Card.Body>
               </button>
