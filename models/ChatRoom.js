@@ -6,6 +6,7 @@ const ChatRoomSchema = new Schema(
     messages: [{ type: Schema.Types.ObjectId, ref: 'Message' }],
     members: [],
     postId: { type: Schema.Types.ObjectId, ref: 'post' },
+    unreadMsgCounter: Number,
   },
   { timestamps: true }
 )
