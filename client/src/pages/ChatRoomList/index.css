@@ -5,3 +5,7 @@
 .btn-enter-chat:hover {
   background-color: rgba(0, 0, 0, 0.125);
 }
+
+.message-icon {
+  font-size: 2.5rem;
+}

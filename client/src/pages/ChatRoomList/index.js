@@ -33,7 +33,8 @@ const ChatRoomList = () => {
                 className="btn btn-enter-chat"
               >
                 <Card.Body className="d-flex align-items-center justify-content-between">
-                  <Card.Title className="mb-0">
+                  <Card.Title className="mb-0 d-flex align-items-center">
+                    <i className="fas fa-user-circle mr-3 message-icon"></i>
                     {room.members[0] === user.username
                       ? room.members[1]
                       : room.members[0]}
