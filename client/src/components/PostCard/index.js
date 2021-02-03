@@ -51,7 +51,7 @@ function PostCard({ post, editable }) {
     </button>
   )
 
-  const isSold = <p className="btn-sold px-3 py-1">Sold</p>
+  const isSold = <p className="btn-sold px-3 py-1 mb-1">Sold</p>
 
   const price = rate * post.price
 
@@ -63,16 +63,20 @@ function PostCard({ post, editable }) {
         <Card.Text>{post.description}</Card.Text>
         <div className="d-flex flex-column align-items-end mt-4">
           {post.sold ? isSold : null}
-          <h4 className="d-flex">
+          <h4 className="d-flex mb-0">
             {post.price.toFixed(2)}
             <i
               className="fab fa-btc ml-2 d-flex align-items-center"
               title="Bitcoin"
             ></i>
           </h4>
-          <p className={!editable && post.sold ? 'mb-0' : ''}>
-            ({price.toFixed(0)} CAD)
-          </p>
+          <p>({price.toFixed(0)} CAD)</p>
+          <Card.Text
+            className={`sold-by-text ${!editable && post.sold ? 'mb-0' : ''}`}
+          >
+            Sold by: <i className="fas fa-user-circle mr-1 ml-2"></i>
+            {post.userName}
+          </Card.Text>
         </div>
       </Card.Body>
       <Card.Body className={`pt-0 ${!editable && post.sold ? 'pb-0' : ''}`}>
