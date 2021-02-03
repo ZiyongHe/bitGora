@@ -26,7 +26,7 @@ function PostCard({ post, editable }) {
     <div className="d-flex">
       <Link
         to={`/user/post/edit/${post._id}`}
-        className="btn btn-primary flex-grow-1 mr-3"
+        className="btn btn-warning flex-grow-1 mr-3"
       >
         Edit
       </Link>
