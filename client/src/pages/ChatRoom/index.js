@@ -91,9 +91,10 @@ const ChatRoom = () => {
   return (
     <>
       <Container>
-        <Row id="chatroom-title" className="border-bottom">
-          <Col>
-            <h1 className="my-3">
+        <Row id="chatroom-title" className="border-bottom py-3">
+          <Col className="d-flex align-items-center">
+            <i className="fas fa-user-circle mr-3 chatroom-icon"></i>
+            <h1 className="mb-0">
               {activeRoom && activeRoom.members[0] === user.username
                 ? activeRoom.members[1]
                 : activeRoom.members[0]}
