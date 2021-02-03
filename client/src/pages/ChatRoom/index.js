@@ -90,7 +90,7 @@ const ChatRoom = () => {
 
   return (
     <>
-      <Container>
+      <Container className="flex-grow-1 d-flex flex-column">
         <Row id="chatroom-title" className="border-bottom py-3">
           <Col className="d-flex align-items-center">
             <i className="fas fa-user-circle mr-3 chatroom-icon"></i>
@@ -101,8 +101,8 @@ const ChatRoom = () => {
             </h1>
           </Col>
         </Row>
-        <Row>
-          <Col>
+        <Row className="flex-grow-1">
+          <Col className="d-flex flex-column justify-content-end">
             <ul id="message-list" className="mt-3">
               {activeRoom
                 ? activeRoom.messages.map((message, i) => (
