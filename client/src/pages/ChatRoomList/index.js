@@ -51,7 +51,7 @@ const ChatRoomList = () => {
                           : room.members[0]}
                       </Card.Title>
                       {room.postId ? (
-                        <Card.Text className="about-text">
+                        <Card.Text className="about-text text-left">
                           About
                           <strong>
                             {room.postId.username === user.username
@@ -63,7 +63,7 @@ const ChatRoomList = () => {
                       ) : null}
                     </div>
                   </div>
-                  <i className="fas fa-chevron-right"></i>
+                  <i className="fas fa-chevron-right ml-2"></i>
                 </Card.Body>
               </button>
             </Card>
