@@ -21,7 +21,7 @@ const ChatRoomList = () => {
     <Container className="mt-4 pb-5">
       <Row>
         <Col>
-          <h1 className="mb-3">Messages</h1>
+          <h1 className="mb-3">Conversations</h1>
         </Col>
       </Row>
       {chats.map((room) => (
