@@ -6,6 +6,7 @@ const mongoose = require('mongoose')
 router.get('/messages/:roomId', (req, res) => {
   const RoomId = req.params.roomId
   ChatRoom.findOne({ _id: mongoose.Types.ObjectId(RoomId) })
+    .populate('postId')
     .populate('messages')
     .then((doc) => {
       res.json(doc)
@@ -27,10 +28,17 @@ router.post('/', (req, res) => {
   Post.findById(req.body.postId).then(async (docs) => {
     const user1 = docs.userName
     const user2 = req.body.username
-    const chatroom = { members: [user1, user2], messages: [] }
+    const chatroom = {
+      members: [user1, user2],
+      messages: [],
+      postId: mongoose.Types.ObjectId(req.body.postId),
+    }
 
     // check if inquirier already has a room with the seller
-    const roomExist = await ChatRoom.findOne({ members: [user1, user2] })
+    const roomExist = await ChatRoom.findOne({
+      members: [user1, user2],
+      postId: mongoose.Types.ObjectId(req.body.postId),
+    })
     if (roomExist) {
       return res.json(roomExist)
     } else {
