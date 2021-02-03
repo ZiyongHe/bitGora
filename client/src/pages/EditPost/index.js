@@ -71,7 +71,7 @@ function EditPost() {
         <Col>
           <Form className="mb-4" onSubmit={handleSubmit}>
             <Form.Group controlId="name">
-              <Form.Label>Name</Form.Label>
+              <Form.Label>Title</Form.Label>
               <Form.Control
                 value={post.name}
                 onChange={(e) =>
