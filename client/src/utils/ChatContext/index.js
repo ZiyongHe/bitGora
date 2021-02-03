@@ -20,20 +20,18 @@ export function ChatProvider(props) {
       _id: '',
       messages: [],
       members: [],
-      unreadMsgCounter: '',
     },
   ])
-  
+
   const [activeRoom, setActiveRoom] = useState({
     _id: '',
     messages: [],
     members: [],
   })
-  // counter for counting unread new message 
+  // counter for counting unread new message
   const [count, setCount] = useState()
   const socketRef = useRef()
   const activeRoomId = useRef()
-  
 
   useEffect(() => {
     activeRoomId.current = activeRoom._id
@@ -92,15 +90,6 @@ export function ChatProvider(props) {
         ...prevState,
         messages: [...prevState.messages, message],
       }))
-    } else {
-      // when not on current active page
-      // notify signal on pages other than room list page
-      setCount(count+1)
-      if (){
-
-      }else{
-        //notification on room list page
-      }
     }
   }
 

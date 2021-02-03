@@ -7,6 +7,7 @@ import { newChatRoom } from '../../utils/message-API'
 import { useUser } from '../../utils/UserContext'
 import { useChat } from '../../utils/ChatContext'
 import { useRate } from '../../utils/RateContext'
+import AnimatedNumber from 'animated-number-react'
 
 function PostCard({ post, editable }) {
   const { handleDelete } = usePost()
@@ -50,6 +51,9 @@ function PostCard({ post, editable }) {
   )
 
   const price = rate * post.price
+  function formatValue(value) {
+    return `(${Number(value).toFixed(0)} CAD)`
+  }
 
   return (
     <Card>
@@ -65,7 +69,12 @@ function PostCard({ post, editable }) {
             title="Bitcoin"
           ></i>
         </h4>
-        <p className="d-flex justify-content-end">({price.toFixed(0)} CAD)</p>
+        <AnimatedNumber
+          className="d-flex justify-content-end"
+          value={price}
+          formatValue={formatValue}
+          duration={800}
+        />
       </Card.Body>
       <Card.Body className="pt-0">
         {editable ? editableLinks : messageSeller}

@@ -11,7 +11,7 @@ export function RateProvider(props) {
     fetch(query)
       .then((res) => res.json())
       .then((res) => {
-        console.log('Rate (BTC to CAD) by coindesk: ')
+        console.log('Rate (BTC to CAD) by deskcoin: ')
         console.log(res.bpi.CAD.rate_float)
         setRate(res.bpi.CAD.rate_float)
       })
