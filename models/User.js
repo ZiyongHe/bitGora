@@ -17,6 +17,7 @@ const userSchema = new Schema({
   },
   // post: [{ type: Schema.Types.ObjectId, ref: 'post' }],
   ChatRoom: [{ type: Schema.Types.ObjectId, ref: 'ChatRoom' }],
+  userNotification: { type: Number, default: 0 },
 })
 
 userSchema.methods.validPassword = function (password) {

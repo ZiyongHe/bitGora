@@ -13,7 +13,7 @@ router.get('/messages/:roomId', (req, res) => {
     })
 })
 
-// ****************get user's chatroom list*******************
+// *******************get user's chatroom list**********************
 router.get('/list/:username', (req, res) => {
   User.findOne({ username: req.params.username })
     .populate({
@@ -25,7 +25,7 @@ router.get('/list/:username', (req, res) => {
     })
 })
 
-// *************creating new chatroom******************
+// *******************creating new chatroom************************
 router.post('/', (req, res) => {
   // user1 is seller, user2 is inquirier
   Post.findById(req.body.postId).then(async (docs) => {
