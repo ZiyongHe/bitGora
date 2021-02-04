@@ -9,7 +9,7 @@ import { useChat } from '../../utils/ChatContext'
 import './index.css'
 
 const ChatRoomList = () => {
-  const { user } = useUser()
+  const { user, zeroNotification } = useUser()
   const { chats } = useChat()
   let history = useHistory()
 
@@ -17,6 +17,7 @@ const ChatRoomList = () => {
   console.log(chats)
 
   function enterRoomBtn(roomId) {
+    zeroNotification(roomId)
     return history.push(`/user/chat/room/${roomId}`)
   }
 

@@ -34,8 +34,6 @@ export function ChatProvider(props) {
 
   useEffect(() => {
     activeRoomId.current = activeRoom._id
-    // Zero notification when entering a chat room
-    zeroNotification(activeRoom._id)
   }, [activeRoom])
 
   useEffect(() => {

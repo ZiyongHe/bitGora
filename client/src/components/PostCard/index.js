@@ -13,7 +13,7 @@ import './style.css'
 
 function PostCard({ post, editable }) {
   const { handleDelete } = usePost()
-  const { user } = useUser()
+  const { user, zeroNotification } = useUser()
   let history = useHistory()
   const { joinNewRoom } = useChat()
   const [rate] = useRate()
@@ -21,6 +21,7 @@ function PostCard({ post, editable }) {
   const handleMessageBtn = (id, username) => {
     newChatRoom(id, username).then((res) => {
       joinNewRoom(res)
+      zeroNotification(res._id)
       history.push(`/user/chat/room/${res._id}`)
     })
   }

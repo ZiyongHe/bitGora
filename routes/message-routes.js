@@ -36,30 +36,36 @@ router.post('/', (req, res) => {
       messages: [],
       postId: mongoose.Types.ObjectId(req.body.postId),
     }
+    console.log(chatroom.members)
 
     // check if inquirier already has a room with the seller
     const roomExist = await ChatRoom.findOne({
       members: [user1, user2],
       postId: mongoose.Types.ObjectId(req.body.postId),
     })
+
     if (roomExist) {
       return res.json(roomExist)
     } else {
       // create chatroom and get chatroom id
-      ChatRoom.create(chatroom).then((doc) => {
+      ChatRoom.create(chatroom).then(async (doc) => {
         const roomId = doc._id
 
         // save chatroom id to both users
         // push a new 0 element to notification array
-        User.findOne({ username: user1 }).then((doc) => {
+        await User.findOne({ username: user1 }).then(async (doc) => {
           doc.ChatRoom.push(roomId)
           doc.userNotification.push(0)
-          doc.save()
+          console.log('push 0 to seller')
+          await doc.save()
         })
-        User.findOne({ username: user2 }).then((doc) => {
+
+        await User.findOne({ username: user2 }).then(async (doc) => {
           doc.ChatRoom.push(roomId)
           doc.userNotification.push(0)
-          doc.save()
+          console.log('push 0 to inquirier')
+          console.log(doc)
+          await doc.save()
         })
         return res.json(doc)
       })

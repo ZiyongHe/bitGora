@@ -30,21 +30,17 @@ export function UserProvider(props) {
     setUser((prevState) => {
       console.log('before entering a chat:')
       console.log(user)
-      if (user.chatRoom) {
-        const index = user.chatRoom.indexOf(roomId)
-        const newUserNotification = prevState.userNotification.map(
-          (element, i) => {
-            if (i === index) element = 0
-            return element
-          }
-        )
-        zeroDatabaseNotification(user.username, newUserNotification)
-        console.log('after entering a chat:')
-        console.log({ ...prevState, userNotification: newUserNotification })
-        return { ...prevState, userNotification: newUserNotification }
-      } else {
-        return prevState
-      }
+      const index = user.chatRoom.indexOf(roomId)
+      const newUserNotification = prevState.userNotification.map(
+        (element, i) => {
+          if (i === index) element = 0
+          return element
+        }
+      )
+      zeroDatabaseNotification(user.username, newUserNotification)
+      console.log('after entering a chat:')
+      console.log({ ...prevState, userNotification: newUserNotification })
+      return { ...prevState, userNotification: newUserNotification }
     })
   }
 
