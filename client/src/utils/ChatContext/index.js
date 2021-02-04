@@ -14,7 +14,7 @@ const SUBSCRIBE = 'subscribe'
 const NEW_CHAT_MESSAGE_EVENT = 'newChatMessage' // Name of the event
 
 export function ChatProvider(props) {
-  const [user] = useUser()
+  const [user, setUser] = useUser()
   const [chats, setChats] = useState([
     {
       _id: '',
@@ -79,16 +79,22 @@ export function ChatProvider(props) {
     // find the right chatroom object
     // save the message to it
     setChats((prevState) => {
-      prevState.map((room) => {
+      prevState.map((room, index) => {
         // append the new message to its room in chatsContext chats state
         if (room._id === message.roomId) {
           room.messages.push(message._id)
           if (message.roomId !== activeRoomId.current) {
             // for receiver that is not in this message's room, add notification to context and to database
-            room.members.forEach((member, index) => {
+            room.members.forEach((member, i) => {
               if (member !== message.username) {
-                room.chatNotification[index] += 1
+                room.chatNotification[i] += 1
                 addChatNotification(message.roomId, index)
+                // add notificaiton to userNotification, userNotification and chatroom list are related by index
+                let newUserNotification = user.userNotification
+                newUserNotification[index] += 1
+                setUser((prevState) => {
+                  return { ...prevState, userNotification: newUserNotification }
+                })
               }
             })
           }
