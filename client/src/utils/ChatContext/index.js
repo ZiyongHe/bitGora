@@ -98,6 +98,8 @@ export function ChatProvider(props) {
                     ...prevState,
                     userNotification: newUserNotification,
                   }
+                  console.log('Logging context update:')
+                  console.log(updatedUser)
                   // add notification to user database
                   addUserNotification(member, newUserNotification)
                   return updatedUser
@@ -106,6 +108,7 @@ export function ChatProvider(props) {
             })
           }
         }
+        console.log(room)
         return room
       })
     })
