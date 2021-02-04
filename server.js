@@ -69,7 +69,7 @@ const io = require('socket.io')(httpServer, {
 })
 
 const Message = require('./models/Message')
-const { ChatRoom } = require('./models')
+const { ChatRoom, User } = require('./models')
 const NEW_CHAT_MESSAGE_EVENT = 'newChatMessage'
 const SUBSCRIBE = 'subscribe'
 io.on('connection', (socket) => {
@@ -86,13 +86,32 @@ io.on('connection', (socket) => {
     const newMessage = new Message({
       username: data.username,
       body: data.body,
+      receiver: data.receiver,
       // might need to convert to objectId
       roomId: data.roomId,
     })
+    console.log(newMessage)
     await newMessage.save()
     const chatRoom = await ChatRoom.findById(data.roomId)
+    let receiver
     chatRoom.messages.push(newMessage._id)
+    chatRoom.members.forEach((member, index) => {
+      if (member !== data.username) {
+        chatRoom.chatNotification[index] += 1
+        receiver = member
+      }
+    })
     await chatRoom.save()
+
+    User.findOne({ username: receiver }).then((doc) => {
+      const index = doc.ChatRoom.indexOf(data.roomId)
+      doc.userNotification[index] += 1
+      doc.save()
+    })
+    // console.log(doc)
+    // console.log(index)
+    // console.log(doc.userNotification[index])
+
     // Broadcast back to all connected clients
     io.in(data.roomId).emit(NEW_CHAT_MESSAGE_EVENT, newMessage.toJSON())
   })

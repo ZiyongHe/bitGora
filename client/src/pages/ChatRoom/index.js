@@ -64,7 +64,11 @@ const ChatRoom = () => {
   }
 
   const handleSendMessage = () => {
-    sendMessage(newMessage, id)
+    let receiver
+    activeRoom.members[0] === user.username
+      ? (receiver = activeRoom.members[1])
+      : (receiver = activeRoom.members[0])
+    sendMessage(newMessage, id, receiver)
     setNewMessage('')
   }
 

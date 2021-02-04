@@ -59,11 +59,12 @@ export function ChatProvider(props) {
     }
   }, [])
 
-  const sendMessage = (messageBody, roomId) => {
+  const sendMessage = (messageBody, roomId, receiver) => {
     socketRef.current.emit(NEW_CHAT_MESSAGE_EVENT, {
       roomId: roomId,
       body: messageBody,
       username: user.username,
+      receiver: receiver,
       senderId: socketRef.current.id,
     })
   }
@@ -80,10 +81,12 @@ export function ChatProvider(props) {
     // find the right chatroom object
     // save the message to it
     setChats((prevState) => {
-      prevState.map((room, index) => {
+      return prevState.map((room, index) => {
         // append the new message to its room in chatsContext chats state
         if (room._id === message.roomId) {
           room.messages.push(message._id)
+          // filter for setting Chat context:
+          // only for receiver that is not in current room but online
           if (message.roomId !== activeRoomId.current) {
             // add notification for receiver not in current room, for online and offline cases
             room.members.forEach((member, i) => {

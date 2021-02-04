@@ -50,12 +50,15 @@ router.post('/', (req, res) => {
         const roomId = doc._id
 
         // save chatroom id to both users
+        // push a new 0 element to notification array
         User.findOne({ username: user1 }).then((doc) => {
           doc.ChatRoom.push(roomId)
+          doc.userNotification.push(0)
           doc.save()
         })
         User.findOne({ username: user2 }).then((doc) => {
           doc.ChatRoom.push(roomId)
+          doc.userNotification.push(0)
           doc.save()
         })
         return res.json(doc)
