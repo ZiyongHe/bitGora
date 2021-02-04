@@ -75,4 +75,17 @@ router.get('/logout', (req, res) => {
   })
 })
 
+router.put('/addnotification', (req, res) => {
+  const username = req.params.member
+  const newUserNotification = req.body.newUserNotification
+  User.findOne({ userName: username })
+    .then((doc) => {
+      doc.userNotification = newUserNotification
+      doc.save()
+    })
+    .then((doc) => {
+      res.json(doc)
+    })
+})
+
 module.exports = router

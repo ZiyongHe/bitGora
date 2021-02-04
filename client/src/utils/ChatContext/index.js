@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import socketIOClient from 'socket.io-client'
 import { useUser } from '../../utils/UserContext'
 import { getChatRoom, addChatNotification } from '../message-API'
+import { addUserNotification } from '../user-API'
 
 const ChatContext = React.createContext()
 
@@ -88,12 +89,17 @@ export function ChatProvider(props) {
             room.members.forEach((member, i) => {
               if (member !== message.username) {
                 room.chatNotification[i] += 1
-                addChatNotification(message.roomId, index)
+                addChatNotification(message.roomId, i)
                 // add notificaiton to userNotification, userNotification and chatroom list are related by index
                 let newUserNotification = user.userNotification
                 newUserNotification[index] += 1
                 setUser((prevState) => {
-                  return { ...prevState, userNotification: newUserNotification }
+                  const updatedUser = {
+                    ...prevState,
+                    userNotification: newUserNotification,
+                  }
+                  addUserNotification(member, newUserNotification)
+                  return updatedUser
                 })
               }
             })
@@ -102,6 +108,7 @@ export function ChatProvider(props) {
         return room
       })
     })
+
     // if the new message is for the current active room, append to activeRoom state too
     if (message.roomId === activeRoomId.current) {
       setActiveRoom((prevState) => ({
