@@ -13,6 +13,7 @@ const ChatRoomList = () => {
   const { chats } = useChat()
   let history = useHistory()
 
+  console.log('User Chat List:')
   console.log(chats)
 
   function enterRoomBtn(roomId) {

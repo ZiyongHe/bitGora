@@ -79,8 +79,8 @@ router.get('/logout', (req, res) => {
 
 router.put('/notification', (req, res) => {
   User.findOne({ username: req.body.username }).then(async (doc) => {
-    doc = { ...doc, userNotification: req.body.newUserNotification }
-    await doc.save()
+    doc.userNotification = req.body.newUserNotification
+    doc.save()
     return res.json(doc)
   })
 })

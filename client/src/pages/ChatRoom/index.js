@@ -32,7 +32,6 @@ const ChatRoom = () => {
 
   useEffect(() => {
     getMessage(id).then((res) => {
-      console.log(res)
       setActiveRoom(res)
       window.scrollTo(0, document.body.scrollHeight)
     })

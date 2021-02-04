@@ -28,6 +28,7 @@ export function UserProvider(props) {
     // zero notification zeroes both context and database, a save overkill method,
     // used for receiving message while "in active room" & entering any chatroom
     setUser((prevState) => {
+      console.log('before entering a chat:')
       console.log(user)
       if (user.chatRoom) {
         const index = user.chatRoom.indexOf(roomId)
@@ -38,6 +39,8 @@ export function UserProvider(props) {
           }
         )
         zeroDatabaseNotification(user.username, newUserNotification)
+        console.log('after entering a chat:')
+        console.log({ ...prevState, userNotification: newUserNotification })
         return { ...prevState, userNotification: newUserNotification }
       } else {
         return prevState

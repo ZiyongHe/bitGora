@@ -35,9 +35,6 @@ export function zeroDatabaseNotification(username, newUserNotification) {
     body: JSON.stringify({ username, newUserNotification }),
   })
     .then((response) => response.json())
-    .then((data) => {
-      console.log('Success:', data)
-    })
     .catch((error) => {
       console.error('Error:', error)
     })
