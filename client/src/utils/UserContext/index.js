@@ -22,23 +22,34 @@ export function UserProvider(props) {
       })
   }, [])
 
-  function zeroContextNotification(roomId) {
+  function zeroNotification(roomId) {
+    // notification auto add up to user database when receiving each new message,
+    // zeroNotification is used when adding notification is not needed.
+    // zero notification zeroes both context and database, a save overkill method,
+    // used for receiving message while "in active room" & entering any chatroom
     setUser((prevState) => {
-      const index = prevState.chatRoom.indexOf(roomId)
-      const newUserNotification = prevState.userNotification.map(
-        (element, i) => {
-          if (i === index) element = 0
-          return element
-        }
-      )
-      zeroDatabaseNotification(user.username, newUserNotification)
-      return { ...prevState, userNotification: newUserNotification }
+      console.log(user)
+      if (user.chatRoom) {
+        const index = user.chatRoom.indexOf(roomId)
+        const newUserNotification = prevState.userNotification.map(
+          (element, i) => {
+            if (i === index) element = 0
+            return element
+          }
+        )
+        zeroDatabaseNotification(user.username, newUserNotification)
+        return { ...prevState, userNotification: newUserNotification }
+      } else {
+        return prevState
+      }
     })
   }
 
+  // adding notification to context is needed when user is online but not in active room
+
   return (
     <UserContext.Provider
-      value={{ user, setUser, zeroContextNotification }}
+      value={{ user, setUser, zeroNotification }}
       {...props}
     />
   )

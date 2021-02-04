@@ -13,7 +13,8 @@ router.post(
       data: {
         email: req.user.email,
         username: req.user.username,
-        // chatRoom: req.user.chatRoom,
+        chatRoom: req.user.ChatRoom,
+        userNotification: req.user.userNotification,
       },
     })
   }
@@ -33,7 +34,8 @@ router.get('/current-session', (req, res) => {
       data: {
         email: req.user.email,
         username: req.user.username,
-        // chatRoom: req.user.chatRoom,
+        chatRoom: req.user.ChatRoom,
+        userNotification: req.user.userNotification,
       },
     })
   } else {
@@ -72,6 +74,14 @@ router.get('/logout', (req, res) => {
   req.logout()
   res.status(200).json({
     data: 'Successfully logged out.',
+  })
+})
+
+router.put('/notification', (req, res) => {
+  User.findOne({ username: req.body.username }).then(async (doc) => {
+    doc = { ...doc, userNotification: req.body.newUserNotification }
+    await doc.save()
+    return res.json(doc)
   })
 })
 

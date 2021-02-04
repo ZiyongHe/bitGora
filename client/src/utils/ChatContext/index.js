@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react'
 import socketIOClient from 'socket.io-client'
 import { useUser } from '../../utils/UserContext'
 import { getChatRoom } from '../message-API'
-import { addUserNotification } from '../user-API'
 
 const ChatContext = React.createContext()
 
@@ -15,7 +14,7 @@ const SUBSCRIBE = 'subscribe'
 const NEW_CHAT_MESSAGE_EVENT = 'newChatMessage' // Name of the event
 
 export function ChatProvider(props) {
-  const { user, setUser } = useUser()
+  const { user, setUser, zeroNotification } = useUser()
   const [chats, setChats] = useState([
     {
       _id: '',
@@ -35,6 +34,8 @@ export function ChatProvider(props) {
 
   useEffect(() => {
     activeRoomId.current = activeRoom._id
+    // Zero notification when entering a chat room
+    zeroNotification(activeRoom._id)
   }, [activeRoom])
 
   useEffect(() => {
@@ -84,32 +85,7 @@ export function ChatProvider(props) {
         // append the new message to its room in chatsContext chats state
         if (room._id === message.roomId) {
           room.messages.push(message._id)
-          // filter for setting Chat context:
-          // only for receiver that is not in current room but online
-          if (message.roomId !== activeRoomId.current) {
-            // add notification for receiver not in current room, for online and offline cases
-            room.members.forEach((member, i) => {
-              if (member !== message.username) {
-                room.chatNotification[i] += 1
-                // add notification to user context - userNotification and chatroom list are related by index
-                let newUserNotification = user.userNotification
-                newUserNotification[index] += 1
-                setUser((prevState) => {
-                  const updatedUser = {
-                    ...prevState,
-                    userNotification: newUserNotification,
-                  }
-                  console.log('Logging context update:')
-                  console.log(updatedUser)
-                  // add notification to user database
-                  addUserNotification(member, newUserNotification)
-                  return updatedUser
-                })
-              }
-            })
-          }
         }
-        console.log(room)
         return room
       })
     })
@@ -120,6 +96,8 @@ export function ChatProvider(props) {
         ...prevState,
         messages: [...prevState.messages, message],
       }))
+      // Zero notification for being in active room when receiving a message
+      zeroNotification(activeRoom.current)
     }
   }
 
