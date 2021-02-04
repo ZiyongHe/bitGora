@@ -85,12 +85,12 @@ export function ChatProvider(props) {
         if (room._id === message.roomId) {
           room.messages.push(message._id)
           if (message.roomId !== activeRoomId.current) {
-            // for receiver that is not in this message's room, add notification to context and to database
+            // add notification for receiver not in current room, for online and offline cases
             room.members.forEach((member, i) => {
               if (member !== message.username) {
                 room.chatNotification[i] += 1
                 addChatNotification(message.roomId, i)
-                // add notificaiton to userNotification, userNotification and chatroom list are related by index
+                // add notification to user context - userNotification and chatroom list are related by index
                 let newUserNotification = user.userNotification
                 newUserNotification[index] += 1
                 setUser((prevState) => {
@@ -98,6 +98,7 @@ export function ChatProvider(props) {
                     ...prevState,
                     userNotification: newUserNotification,
                   }
+                  // add notification to user database
                   addUserNotification(member, newUserNotification)
                   return updatedUser
                 })
