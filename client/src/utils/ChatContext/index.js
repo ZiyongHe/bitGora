@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import socketIOClient from 'socket.io-client'
 import { useUser } from '../../utils/UserContext'
-import { getChatRoom } from '../message-API'
+import { getChatRoom, addChatNotification } from '../message-API'
 
 const ChatContext = React.createContext()
 
@@ -20,6 +20,7 @@ export function ChatProvider(props) {
       _id: '',
       messages: [],
       members: [],
+      chatNotification: [0, 0],
     },
   ])
 
@@ -28,8 +29,7 @@ export function ChatProvider(props) {
     messages: [],
     members: [],
   })
-  // counter for counting unread new message
-  const [count, setCount] = useState()
+
   const socketRef = useRef()
   const activeRoomId = useRef()
 
@@ -78,15 +78,24 @@ export function ChatProvider(props) {
   const handleNewMessage = (message) => {
     // find the right chatroom object
     // save the message to it
-    setChats((prevState) =>
+    setChats((prevState) => {
       prevState.map((room) => {
         // append the new message to its room in chatsContext chats state
         if (room._id === message.roomId) {
           room.messages.push(message._id)
+          if (message.roomId !== activeRoomId.current) {
+            // for receiver that is not in this message's room, add notification to context and to database
+            room.members.forEach((member, index) => {
+              if (member !== message.username) {
+                room.chatNotification[index] += 1
+                addChatNotification(message.roomId, index)
+              }
+            })
+          }
         }
         return room
       })
-    )
+    })
     // if the new message is for the current active room, append to activeRoom state too
     if (message.roomId === activeRoomId.current) {
       setActiveRoom((prevState) => ({

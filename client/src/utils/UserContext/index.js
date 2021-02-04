@@ -9,7 +9,7 @@ export function UserProvider(props) {
     username: '',
     email: '',
     chatRoom: [],
-    userNotification: 0,
+    userNotification: [],
   })
 
   useEffect(() => {
