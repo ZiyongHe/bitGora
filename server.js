@@ -90,27 +90,20 @@ io.on('connection', (socket) => {
       // might need to convert to objectId
       roomId: data.roomId,
     })
-    console.log(newMessage)
     await newMessage.save()
     const chatRoom = await ChatRoom.findById(data.roomId)
-    let receiver
     chatRoom.messages.push(newMessage._id)
-    chatRoom.members.forEach((member, index) => {
-      if (member !== data.username) {
-        chatRoom.chatNotification[index] += 1
-        receiver = member
-      }
-    })
     await chatRoom.save()
 
-    User.findOne({ username: receiver }).then((doc) => {
-      const index = doc.ChatRoom.indexOf(data.roomId)
-      doc.userNotification[index] += 1
-      doc.save()
+    const receiver = await User.findOne({ username: data.receiver })
+
+    const index = receiver.ChatRoom.indexOf(data.roomId)
+    receiver.userNotification = receiver.userNotification.map((element, i) => {
+      if (i === index) element++
+      return element
     })
-    // console.log(doc)
-    // console.log(index)
-    // console.log(doc.userNotification[index])
+    console.log(receiver)
+    await receiver.save()
 
     // Broadcast back to all connected clients
     io.in(data.roomId).emit(NEW_CHAT_MESSAGE_EVENT, newMessage.toJSON())
