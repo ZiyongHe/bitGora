@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import socketIOClient from 'socket.io-client'
 import { useUser } from '../../utils/UserContext'
-import { getChatRoom, addChatNotification } from '../message-API'
+import { getChatRoom } from '../message-API'
 import { addUserNotification } from '../user-API'
 
 const ChatContext = React.createContext()
@@ -21,7 +21,6 @@ export function ChatProvider(props) {
       _id: '',
       messages: [],
       members: [],
-      chatNotification: [0, 0],
     },
   ])
 
@@ -92,7 +91,6 @@ export function ChatProvider(props) {
             room.members.forEach((member, i) => {
               if (member !== message.username) {
                 room.chatNotification[i] += 1
-                addChatNotification(message.roomId, i)
                 // add notification to user context - userNotification and chatroom list are related by index
                 let newUserNotification = user.userNotification
                 newUserNotification[index] += 1
