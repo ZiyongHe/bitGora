@@ -14,7 +14,7 @@ import { ReactComponent as Logo } from '../../img/bitgora-wordmark.svg'
 
 function Signup(props) {
   // eslint-disable-next-line no-unused-vars
-  const [_, setUser] = useUser()
+  const { _, setUser } = useUser()
   const [err, setErr] = useState('')
   const email = useRef('')
   const username = useRef('')

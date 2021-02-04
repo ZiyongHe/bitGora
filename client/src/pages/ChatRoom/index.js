@@ -17,7 +17,7 @@ const ENTER = 'Enter'
 
 const ChatRoom = () => {
   // use the activeRoom state from useChat
-  const [user] = useUser()
+  const { user } = useUser()
   const { id } = useParams()
   const { sendMessage, activeRoom, setActiveRoom } = useChat()
   const [newMessage, setNewMessage] = useState('') // Message to be sent

@@ -9,7 +9,7 @@ import { useChat } from '../../utils/ChatContext'
 import './index.css'
 
 const ChatRoomList = () => {
-  const [user] = useUser()
+  const { user } = useUser()
   const { chats } = useChat()
   let history = useHistory()
 

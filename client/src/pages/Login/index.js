@@ -13,7 +13,7 @@ import './style.css'
 
 function Login(props) {
   // eslint-disable-next-line no-unused-vars
-  const [_, setUser] = useUser()
+  const { _, setUser } = useUser()
   const [err, setErr] = useState('')
   const username = useRef('')
   const password = useRef('')

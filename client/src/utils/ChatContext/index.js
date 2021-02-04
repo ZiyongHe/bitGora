@@ -15,7 +15,7 @@ const SUBSCRIBE = 'subscribe'
 const NEW_CHAT_MESSAGE_EVENT = 'newChatMessage' // Name of the event
 
 export function ChatProvider(props) {
-  const [user, setUser] = useUser()
+  const { user, setUser } = useUser()
   const [chats, setChats] = useState([
     {
       _id: '',

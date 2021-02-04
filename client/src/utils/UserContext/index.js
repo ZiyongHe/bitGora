@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { getSession } from '../user-API.js'
+import { getSession, zeroDatabaseNotification } from '../user-API.js'
 
 const UserContext = React.createContext()
 
@@ -22,7 +22,26 @@ export function UserProvider(props) {
       })
   }, [])
 
-  return <UserContext.Provider value={[user, setUser]} {...props} />
+  function zeroContextNotification(roomId) {
+    setUser((prevState) => {
+      const index = prevState.chatRoom.indexOf(roomId)
+      const newUserNotification = prevState.userNotification.map(
+        (element, i) => {
+          if (i === index) element = 0
+          return element
+        }
+      )
+      zeroDatabaseNotification(user.username, newUserNotification)
+      return { ...prevState, userNotification: newUserNotification }
+    })
+  }
+
+  return (
+    <UserContext.Provider
+      value={{ user, setUser, zeroContextNotification }}
+      {...props}
+    />
+  )
 }
 
 export function useUser() {

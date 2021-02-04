@@ -9,7 +9,7 @@ import { ReactComponent as Logo } from '../../img/bitgora-logo.svg'
 import './style.css'
 
 function MainNav() {
-  const [user, setUser] = useUser()
+  const { user, setUser } = useUser()
   const history = useHistory()
 
   const handleLogout = () => {
