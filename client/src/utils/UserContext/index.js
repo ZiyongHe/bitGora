@@ -44,11 +44,28 @@ export function UserProvider(props) {
     })
   }
 
-  // adding notification to context is needed when user is online but not in active room
+  // update notification to user context is needed when user is online but not in active room
+  // all data at back end is handled, this is only for context update
+  function notify(roomId) {
+    setUser((prevState) => {
+      console.log('User before notifying for a new message:')
+      console.log(user)
+      const index = user.chatRoom.indexOf(roomId)
+      const newUserNotification = prevState.userNotification.map(
+        (element, i) => {
+          if (i === index) element += 1
+          return element
+        }
+      )
+      console.log('After Notifying:')
+      console.log({ ...prevState, userNotification: newUserNotification })
+      return { ...prevState, userNotification: newUserNotification }
+    })
+  }
 
   return (
     <UserContext.Provider
-      value={{ user, setUser, zeroNotification }}
+      value={{ user, setUser, zeroNotification, notify }}
       {...props}
     />
   )

@@ -14,7 +14,7 @@ const SUBSCRIBE = 'subscribe'
 const NEW_CHAT_MESSAGE_EVENT = 'newChatMessage' // Name of the event
 
 export function ChatProvider(props) {
-  const { user, setUser, zeroNotification } = useUser()
+  const { user, zeroNotification, notify } = useUser()
   const [chats, setChats] = useState([
     {
       _id: '',
@@ -96,6 +96,8 @@ export function ChatProvider(props) {
       }))
       // Zero notification for being in active room when receiving a message
       zeroNotification(activeRoom.current)
+    } else {
+      notify(message.roomId)
     }
   }
 
