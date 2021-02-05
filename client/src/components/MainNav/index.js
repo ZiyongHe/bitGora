@@ -38,8 +38,23 @@ function MainNav() {
             <Link to="/user/post/create" className="nav-link">
               Create Post
             </Link>
-            <Link to="/user/chat/list" className="nav-link">
-              Conversations
+            <Link
+              to="/user/chat/list"
+              className="nav-link d-flex align-items-center"
+            >
+              Conversations{' '}
+              {user.userNotification &&
+              user.userNotification.reduce(
+                (total, notifNum) => total + notifNum,
+                0
+              ) > 0 ? (
+                <span id="notif-nav" className="notif-circle ml-2">
+                  {user.userNotification.reduce(
+                    (total, notifNum) => total + notifNum,
+                    0
+                  )}
+                </span>
+              ) : null}
             </Link>
             <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
           </Nav>
