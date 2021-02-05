@@ -13,7 +13,7 @@ router.get('/messages/:roomId', (req, res) => {
     })
 })
 
-// ****************get user's chatroom list*******************
+// *******************get user's chatroom list**********************
 router.get('/list/:username', (req, res) => {
   User.findOne({ username: req.params.username })
     .populate({
@@ -25,7 +25,7 @@ router.get('/list/:username', (req, res) => {
     })
 })
 
-// *************creating new chatroom******************
+// *******************creating new chatroom************************
 router.post('/', (req, res) => {
   // user1 is seller, user2 is inquirier
   Post.findById(req.body.postId).then(async (docs) => {
@@ -36,27 +36,33 @@ router.post('/', (req, res) => {
       messages: [],
       postId: mongoose.Types.ObjectId(req.body.postId),
     }
+    console.log(chatroom.members)
 
     // check if inquirier already has a room with the seller
     const roomExist = await ChatRoom.findOne({
       members: [user1, user2],
       postId: mongoose.Types.ObjectId(req.body.postId),
     })
+
     if (roomExist) {
       return res.json(roomExist)
     } else {
       // create chatroom and get chatroom id
-      ChatRoom.create(chatroom).then((doc) => {
+      ChatRoom.create(chatroom).then(async (doc) => {
         const roomId = doc._id
 
         // save chatroom id to both users
-        User.findOne({ username: user1 }).then((doc) => {
+        // push a new 0 element to notification array
+        await User.findOne({ username: user1 }).then(async (doc) => {
           doc.ChatRoom.push(roomId)
-          doc.save()
+          doc.userNotification.push(0)
+          await doc.save()
         })
-        User.findOne({ username: user2 }).then((doc) => {
+
+        await User.findOne({ username: user2 }).then(async (doc) => {
           doc.ChatRoom.push(roomId)
-          doc.save()
+          doc.userNotification.push(0)
+          await doc.save()
         })
         return res.json(doc)
       })

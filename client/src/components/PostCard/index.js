@@ -13,7 +13,7 @@ import './style.css'
 
 function PostCard({ post, editable }) {
   const { handleDelete } = usePost()
-  const [user] = useUser()
+  const { user } = useUser()
   let history = useHistory()
   const { joinNewRoom } = useChat()
   const [rate] = useRate()

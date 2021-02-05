@@ -59,6 +59,7 @@ router.post('/', isAuthenticated, async (req, res) => {
     const imagePath = req.files.image.path
     cloudinary.uploader.upload(imagePath, async function (err, result) {
       if (err) {
+        console.log('Missing Cloudinary environment variable...')
         res.status(500).send({ err: err.message })
       } else {
         const image = { publicId: result.public_id, url: result.url }

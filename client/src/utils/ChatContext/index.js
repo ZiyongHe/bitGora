@@ -14,7 +14,7 @@ const SUBSCRIBE = 'subscribe'
 const NEW_CHAT_MESSAGE_EVENT = 'newChatMessage' // Name of the event
 
 export function ChatProvider(props) {
-  const [user] = useUser()
+  const { user, zeroNotification, notify } = useUser()
   const [chats, setChats] = useState([
     {
       _id: '',
@@ -28,13 +28,13 @@ export function ChatProvider(props) {
     messages: [],
     members: [],
   })
-  // counter for counting unread new message
-  const [count, setCount] = useState()
+
   const socketRef = useRef()
   const activeRoomId = useRef()
 
   useEffect(() => {
     activeRoomId.current = activeRoom._id
+    zeroNotification(activeRoomId.current)
   }, [activeRoom])
 
   useEffect(() => {
@@ -58,11 +58,12 @@ export function ChatProvider(props) {
     }
   }, [])
 
-  const sendMessage = (messageBody, roomId) => {
+  const sendMessage = (messageBody, roomId, receiver) => {
     socketRef.current.emit(NEW_CHAT_MESSAGE_EVENT, {
       roomId: roomId,
       body: messageBody,
       username: user.username,
+      receiver: receiver,
       senderId: socketRef.current.id,
     })
   }
@@ -78,21 +79,26 @@ export function ChatProvider(props) {
   const handleNewMessage = (message) => {
     // find the right chatroom object
     // save the message to it
-    setChats((prevState) =>
-      prevState.map((room) => {
+    setChats((prevState) => {
+      return prevState.map((room) => {
         // append the new message to its room in chatsContext chats state
         if (room._id === message.roomId) {
           room.messages.push(message._id)
         }
         return room
       })
-    )
+    })
+
     // if the new message is for the current active room, append to activeRoom state too
     if (message.roomId === activeRoomId.current) {
       setActiveRoom((prevState) => ({
         ...prevState,
         messages: [...prevState.messages, message],
       }))
+      // Zero notification for being in active room when receiving a message
+      zeroNotification(activeRoomId.current)
+    } else {
+      notify(message.roomId)
     }
   }
 

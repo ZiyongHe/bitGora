@@ -35,14 +35,14 @@ body {
 /* Styling on top of bootstrap buttons */
 .btn-warning {
   background-color: #f0c808;
-  border: none;
+  border: 2px solid #f0c808;
   color: black;
 }
 
 .btn-primary {
   background-color: #06aed5;
-  border: none;
-  color: black;
+  border: 2px solid #06aed5;
+  color: white;
 }
 
 .btn-primary:hover,
@@ -50,6 +50,7 @@ body {
   background-color: #0c7087;
   border: none;
   box-shadow: 0 0 0 0.2rem rgb(6 174 213 / 50%);
+  color: while;
 }
 
 .btn-primary:active,
@@ -61,8 +62,9 @@ body {
 }
 
 .btn-danger {
-  background-color: #a72032;
-  border: none;
+  background-color: transparent;
+  border: 2px solid #a72032;
+  color: #a72032;
 }
 
 .btn-danger:hover,
@@ -91,6 +93,20 @@ h4,
 h5,
 .h5 {
   font-family: 'Signika', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* notification circle */
+.notif-circle {
+  background-color: #f0c808;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  font-weight: bold;
+  color: rgb(75, 75, 75);
 }
 
 /* For card display*/

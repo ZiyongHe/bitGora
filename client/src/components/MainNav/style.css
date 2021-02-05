@@ -10,10 +10,16 @@
 #menu .nav-link {
   color: #8e8e8e;
   transition: color 0.2s;
+  display: flex;
+  align-items: center;
 }
 
 #menu .nav-link:hover,
 #menu .nav-link:active,
 #menu .nav-link:focus {
   color: #086788;
+}
+
+#menu #notif-nav {
+  color: rgb(75, 75, 75);
 }

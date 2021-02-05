@@ -9,10 +9,11 @@ import { useChat } from '../../utils/ChatContext'
 import './index.css'
 
 const ChatRoomList = () => {
-  const [user] = useUser()
+  const { user } = useUser()
   const { chats } = useChat()
   let history = useHistory()
 
+  console.log('User Chat List:')
   console.log(chats)
 
   function enterRoomBtn(roomId) {
@@ -26,7 +27,7 @@ const ChatRoomList = () => {
           <h1 className="mb-3">Conversations</h1>
         </Col>
       </Row>
-      {chats.map((room) => (
+      {chats.map((room, notifIndex) => (
         <Row key={room._id}>
           <Col>
             <Card className="border-right-0 border-left-0 border-bottom-0 rounded-0">
@@ -63,7 +64,15 @@ const ChatRoomList = () => {
                       ) : null}
                     </div>
                   </div>
-                  <i className="fas fa-chevron-right ml-2"></i>
+                  <div className="d-flex align-items-center">
+                    {user.userNotification &&
+                    user.userNotification[notifIndex] > 0 ? (
+                      <span className="notif-circle">
+                        {user.userNotification[notifIndex]}
+                      </span>
+                    ) : null}
+                    <i className="fas fa-chevron-right ml-2"></i>
+                  </div>
                 </Card.Body>
               </button>
             </Card>

@@ -3,7 +3,7 @@ import { Route, Redirect } from 'react-router-dom'
 import { useUser } from '../../utils/UserContext'
 
 function PublicRoute({ component: Component, exact, path, ...extra }) {
-  const [user] = useUser()
+  const { user } = useUser()
   return (
     <Route
       exact={exact}

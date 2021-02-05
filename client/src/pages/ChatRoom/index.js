@@ -17,7 +17,7 @@ const ENTER = 'Enter'
 
 const ChatRoom = () => {
   // use the activeRoom state from useChat
-  const [user] = useUser()
+  const { user } = useUser()
   const { id } = useParams()
   const { sendMessage, activeRoom, setActiveRoom } = useChat()
   const [newMessage, setNewMessage] = useState('') // Message to be sent
@@ -32,10 +32,16 @@ const ChatRoom = () => {
 
   useEffect(() => {
     getMessage(id).then((res) => {
-      console.log(res)
       setActiveRoom(res)
       window.scrollTo(0, document.body.scrollHeight)
     })
+    return function () {
+      setActiveRoom({
+        _id: '',
+        messages: [],
+        members: [],
+      })
+    }
   }, [id])
 
   useEffect(() => {
@@ -64,7 +70,11 @@ const ChatRoom = () => {
   }
 
   const handleSendMessage = () => {
-    sendMessage(newMessage, id)
+    let receiver
+    activeRoom.members[0] === user.username
+      ? (receiver = activeRoom.members[1])
+      : (receiver = activeRoom.members[0])
+    sendMessage(newMessage, id, receiver)
     setNewMessage('')
   }
 
