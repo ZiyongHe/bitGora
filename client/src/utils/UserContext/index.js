@@ -31,12 +31,9 @@ export function UserProvider(props) {
       console.log('before entering a chat:')
       console.log(user)
       const index = user.chatRoom.indexOf(roomId)
-      const newUserNotification = prevState.userNotification.map(
-        (element, i) => {
-          if (i === index) element = 0
-          return element
-        }
-      )
+      let newUserNotification = [...prevState.userNotification]
+      newUserNotification[index] = 0
+      console.log(newUserNotification)
       zeroDatabaseNotification(user.username, newUserNotification)
       console.log('after entering a chat:')
       console.log({ ...prevState, userNotification: newUserNotification })
@@ -47,9 +44,9 @@ export function UserProvider(props) {
   // update notification to user context is needed when user is online but not in active room
   // all data at back end is handled, this is only for context update
   function notify(roomId) {
+    console.log('User before notifying for a new message:')
+    console.log(user)
     setUser((prevState) => {
-      console.log('User before notifying for a new message:')
-      console.log(user)
       const index = user.chatRoom.indexOf(roomId)
       const newUserNotification = prevState.userNotification.map(
         (element, i) => {

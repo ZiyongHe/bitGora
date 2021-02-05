@@ -56,15 +56,12 @@ router.post('/', (req, res) => {
         await User.findOne({ username: user1 }).then(async (doc) => {
           doc.ChatRoom.push(roomId)
           doc.userNotification.push(0)
-          console.log('push 0 to seller')
           await doc.save()
         })
 
         await User.findOne({ username: user2 }).then(async (doc) => {
           doc.ChatRoom.push(roomId)
           doc.userNotification.push(0)
-          console.log('push 0 to inquirier')
-          console.log(doc)
           await doc.save()
         })
         return res.json(doc)

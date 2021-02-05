@@ -35,6 +35,13 @@ const ChatRoom = () => {
       setActiveRoom(res)
       window.scrollTo(0, document.body.scrollHeight)
     })
+    return function () {
+      setActiveRoom({
+        _id: '',
+        messages: [],
+        members: [],
+      })
+    }
   }, [id])
 
   useEffect(() => {

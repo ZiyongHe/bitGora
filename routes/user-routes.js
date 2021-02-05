@@ -76,10 +76,11 @@ router.get('/logout', (req, res) => {
     data: 'Successfully logged out.',
   })
 })
-
 router.put('/notification', (req, res) => {
   User.findOne({ username: req.body.username }).then(async (doc) => {
     doc.userNotification = req.body.newUserNotification
+    console.log(req.body.newUserNotification)
+    console.log(doc.userNotification)
     doc.save()
     return res.json(doc)
   })

@@ -34,6 +34,7 @@ export function ChatProvider(props) {
 
   useEffect(() => {
     activeRoomId.current = activeRoom._id
+    zeroNotification(activeRoomId.current)
   }, [activeRoom])
 
   useEffect(() => {
@@ -79,7 +80,7 @@ export function ChatProvider(props) {
     // find the right chatroom object
     // save the message to it
     setChats((prevState) => {
-      return prevState.map((room, index) => {
+      return prevState.map((room) => {
         // append the new message to its room in chatsContext chats state
         if (room._id === message.roomId) {
           room.messages.push(message._id)
@@ -95,7 +96,7 @@ export function ChatProvider(props) {
         messages: [...prevState.messages, message],
       }))
       // Zero notification for being in active room when receiving a message
-      zeroNotification(activeRoom.current)
+      zeroNotification(activeRoomId.current)
     } else {
       notify(message.roomId)
     }

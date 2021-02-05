@@ -87,7 +87,6 @@ io.on('connection', (socket) => {
       username: data.username,
       body: data.body,
       receiver: data.receiver,
-      // might need to convert to objectId
       roomId: data.roomId,
     })
     await newMessage.save()
