@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 
 const RateContext = React.createContext()
 
 export function RateProvider(props) {
   const [rate, setRate] = useState()
+  const id = useRef(0)
 
   useEffect(() => {
     // fetch Btc rate upon rendering
@@ -16,14 +17,7 @@ export function RateProvider(props) {
         setRate(res.bpi.CAD.rate_float)
       })
 
-    window.setInterval((count = 5) => {
-      count -= 1
-      // set timeout for bitcoin rate update after 5 mins
-      if (count < 0) {
-        console.log('Timeout for rate update, please reflesh the page')
-        clearInterval()
-        return
-      }
+    id.current = window.setInterval(() => {
       console.log('Bitcoin rate update: ')
       const query = 'https://api.coindesk.com/v1/bpi/currentprice/CAD.json'
       return fetch(query)
@@ -32,9 +26,10 @@ export function RateProvider(props) {
           console.log(res.bpi.CAD.rate_float)
           setRate(res.bpi.CAD.rate_float)
         })
-    }, 60000)
+    }, 30000)
     // get update every 60 sec
-    return null
+
+    return () => clearInterval(id.current)
   }, [])
 
   return <RateContext.Provider value={[rate, setRate]} {...props} />
