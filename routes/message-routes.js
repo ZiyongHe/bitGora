@@ -64,7 +64,12 @@ router.post('/', (req, res) => {
           doc.userNotification.push(0)
           await doc.save()
         })
-        return res.json(doc)
+        doc
+          .populate('postId')
+          .execPopulate()
+          .then((doc) => {
+            return res.json(doc)
+          })
       })
     }
   })
